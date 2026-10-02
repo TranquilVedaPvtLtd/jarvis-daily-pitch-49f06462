@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Jarvis Daily: your AI department, run by us. What we do, the pain we remove, and what it has done for businesses so far.">
+<title>Jarvis Daily</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4EFE6; --paper2:#EBE4D6; --paper3:#E2DACA;
+  --ink:#17181C; --ink2:#2F3139; --muted:#5E616B; --faint:#8F929B;
+  --rule:rgba(23,24,28,.16); --rule2:rgba(23,24,28,.08);
+  --gold:#8E6E10; --gold2:#C9A227; --slate:#5B6A96;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --gx:clamp(22px,5.5vw,96px); --gy:clamp(20px,5vh,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',system-ui,sans-serif;font-size:17px;line-height:1.5;overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>")}
+
+.serif,h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:400;letter-spacing:-.015em;line-height:1.02;font-variation-settings:"opsz" 144}
+h1{font-size:clamp(44px,7.2vw,112px);max-width:12ch;text-wrap:balance}
+h2{font-size:clamp(34px,5vw,76px);max-width:14ch;text-wrap:balance}
+h3{font-size:clamp(22px,2.1vw,30px);letter-spacing:-.01em}
+em{font-style:italic;font-weight:300;color:var(--gold)}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:clamp(17px,1.35vw,21px);color:var(--ink2);max-width:46ch;line-height:1.5;text-wrap:pretty}
+.muted{color:var(--muted)}
+a{color:inherit}
+
+/* chrome */
+.chrome{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:20px var(--gx);pointer-events:none}
+.wordmark{font-family:'Fraunces',serif;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;white-space:nowrap}
+.wordmark i{width:8px;height:8px;border-radius:50%;background:var(--gold2);display:inline-block}
+.stage{transition:opacity .3s}
+.progress{position:fixed;left:var(--gx);right:var(--gx);bottom:22px;height:1px;background:var(--rule);z-index:20}
+.progress i{display:block;height:100%;width:0;background:var(--ink);transition:width .5s var(--ease)}
+.counter{position:fixed;right:var(--gx);bottom:32px;z-index:20;font-variant-numeric:tabular-nums}
+.hint{position:fixed;left:var(--gx);bottom:32px;z-index:20;transition:opacity .4s}
+.hint kbd{font:inherit;border:1px solid var(--rule);border-radius:4px;padding:1px 6px;color:var(--ink2);margin:0 2px}
+.hint a{pointer-events:auto;text-decoration:none;border-bottom:1px solid var(--rule);margin-left:12px}
+.notes{position:fixed;left:50%;bottom:52px;transform:translateX(-50%);width:min(900px,calc(100% - 2*var(--gx)));background:var(--ink);color:var(--paper);border-radius:6px;padding:16px 20px;z-index:30;font-size:15px;line-height:1.5;box-shadow:0 24px 60px rgba(23,24,28,.3)}
+.notes b{color:var(--gold2);font-weight:500;margin-right:6px}
+
+/* slides */
+#deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;padding:calc(var(--gy) + 52px) var(--gx) calc(var(--gy) + 36px);display:grid;align-content:center;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease),visibility 0s linear .6s}
+.slide.is-active{opacity:1;visibility:visible;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease),visibility 0s}
+.slide.back{transform:translateY(-14px)}
+.fr{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.fr.on{opacity:1;transform:none}
+.cap{margin-bottom:clamp(14px,2.2vh,24px)}
+.s-statement{align-content:end}
+.s-statement .lede{margin-top:clamp(16px,2.4vh,28px)}
+
+/* cover */
+.cover{align-content:end;padding-bottom:calc(var(--gy) + 48px)}
+.cover .fan{position:absolute;right:calc(var(--gx) * .6);top:50%;width:46vw;max-width:760px;aspect-ratio:16/11;transform:translateY(-54%);pointer-events:none}
+.cover .fan .shot{position:absolute;width:74%;aspect-ratio:16/10;transform-origin:50% 100%}
+.cover .fan .shot.a{left:0;top:9%;transform:rotate(-7deg)}
+.cover .fan .shot.b{left:14%;top:0;transform:rotate(1deg);z-index:2}
+.cover .fan .shot.c{left:28%;top:12%;transform:rotate(8deg)}
+.cover .meta{display:flex;gap:28px;margin-top:clamp(20px,3vh,34px)}
+.cover h1,.cover .lede{position:relative;z-index:3}
+.cover.is-active .fan .shot{animation:none}
+.cover.is-active .fan{animation:fanin 1s var(--ease) both}
+@keyframes fanin{from{opacity:0;transform:translateY(-50%)}to{opacity:1;transform:translateY(-54%)}}
+
+/* screenshots */
+.shot{position:relative;margin:0;background:var(--paper2);border:1px solid var(--rule);border-radius:5px;overflow:hidden;box-shadow:0 1px 0 rgba(23,24,28,.05),0 28px 56px -26px rgba(23,24,28,.45);aspect-ratio:16/10}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.shot.tall img{object-position:top center}
+.shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 12px;background:linear-gradient(0deg,rgba(23,24,28,.55),rgba(23,24,28,0));color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;opacity:0;transition:opacity .25s}
+.shot:hover figcaption{opacity:1}
+.is-active .shot{animation:rise .8s var(--ease) both}
+.is-active .stack .shot.b{animation-delay:.12s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* product layout */
+.prod{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,4.5vw,80px);align-items:center}
+.prod.big{grid-template-columns:minmax(0,3.6fr) minmax(0,8.4fr)}
+.prod.even{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.prod .copy h2{font-size:clamp(30px,3vw,46px);max-width:16ch;margin-bottom:clamp(14px,2vh,22px)}
+.lines{list-style:none;margin-top:6px;border-top:1px solid var(--rule)}
+.lines li{padding:12px 0;border-bottom:1px solid var(--rule2);font-size:clamp(15px,1.15vw,17.5px);color:var(--ink2);line-height:1.4}
+.lines li b{font-weight:500;color:var(--ink)}
+.lines li span{display:block;color:var(--muted);font-size:.92em;margin-top:2px}
+.stack{position:relative;aspect-ratio:16/11.4}
+.stack .shot{position:absolute;width:76%}
+.stack .shot.a{left:0;top:0}
+.stack .shot.b{right:0;bottom:0;z-index:2}
+
+/* persona wall */
+.persona{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,4vw,72px);align-items:center}
+.persona .who h2{font-size:clamp(28px,3vw,46px);margin-bottom:14px}
+.persona .who p{color:var(--ink2);max-width:30ch}
+.wall{display:flex;flex-wrap:wrap;gap:0 18px;align-content:flex-start;border-top:1px solid var(--rule);padding-top:10px}
+.q{font-family:'Fraunces',serif;font-style:italic;font-weight:300;line-height:1.12;color:var(--ink2);padding:3px 0}
+.q.l{font-size:clamp(19px,1.85vw,27px);color:var(--ink)}
+.q.m{font-size:clamp(15.5px,1.4vw,20px)}
+.q.s{font-size:clamp(13.5px,1.12vw,16px);color:var(--muted)}
+.q.g{color:var(--gold)}
+.q::before{content:"\201C";color:var(--gold2);margin-right:2px}
+.q::after{content:"\201D";color:var(--gold2);margin-left:2px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,3vw,48px) clamp(18px,3vw,56px);margin-top:clamp(20px,3.5vh,40px);border-top:1px solid var(--rule);padding-top:22px}
+.stat b{display:block;font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,4.6vw,72px);line-height:1;color:var(--ink);letter-spacing:-.02em}
+.stat b i{font-style:italic;color:var(--gold);font-size:.55em}
+.stat p{margin-top:8px;color:var(--ink2);font-size:clamp(14px,1.1vw,16.5px);max-width:30ch;line-height:1.4}
+.stat small{display:block;margin-top:6px;color:var(--faint);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0 6px;border-top:1px solid var(--rule);padding-top:14px}
+.statrow b{display:block;font-family:'Fraunces',serif;font-weight:300;font-size:clamp(26px,2.6vw,40px);line-height:1;letter-spacing:-.02em}
+.statrow span{display:block;color:var(--muted);font-size:13px;margin-top:5px;line-height:1.3}
+.owner{margin-top:14px;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(16px,1.35vw,20px);color:var(--gold);line-height:1.3}
+.owner small{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+
+/* three / steps / map */
+.three{margin-top:clamp(20px,3vh,36px);border-top:1px solid var(--rule)}
+.three .b{display:grid;grid-template-columns:clamp(64px,8vw,120px) minmax(0,1fr);gap:16px;align-items:baseline;padding:clamp(14px,2.2vh,24px) 0;border-bottom:1px solid var(--rule2)}
+.three .n{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(34px,4vw,60px);color:var(--gold);line-height:1}
+.three h3{font-size:clamp(24px,2.6vw,38px);margin-bottom:4px}
+.three p{color:var(--ink2);max-width:52ch;font-size:clamp(15px,1.15vw,17.5px)}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(14px,2vw,28px);margin-top:clamp(24px,4vh,48px);border-top:1px solid var(--rule);padding-top:20px}
+.step .n{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(28px,3vw,44px);color:var(--gold);line-height:1;margin-bottom:12px}
+.step h3{font-size:clamp(18px,1.6vw,24px);margin-bottom:6px}
+.step p{font-size:14.5px;color:var(--muted);line-height:1.45}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.5vw,40px);margin-top:clamp(20px,3vh,36px);border-top:1px solid var(--rule);padding-top:18px}
+.map h3{font-size:clamp(22px,2.2vw,32px);margin-bottom:10px}
+.map ul{list-style:none}
+.map li{font-size:clamp(14px,1.1vw,16.5px);color:var(--ink2);padding:7px 0;border-bottom:1px solid var(--rule2);line-height:1.35}
+
+/* agent os diagram */
+.os{position:relative;width:100%;aspect-ratio:1.2/1;max-height:62vh}
+.os svg{width:100%;height:100%;overflow:visible}
+.os text{font-family:'Fraunces',serif;fill:var(--ink);font-size:16px}
+.os text.s{font-family:'Instrument Sans',sans-serif;font-size:11.5px;fill:var(--muted)}
+.os .hub{fill:none;stroke:var(--ink);stroke-width:.8}
+.os .spoke{stroke:var(--rule);stroke-width:1}
+.os .pulse{fill:var(--gold2)}
+.os .human{fill:var(--slate)}
+.ladder{list-style:none;margin-top:12px;border-top:1px solid var(--rule)}
+.ladder li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--rule2);font-size:clamp(15px,1.15vw,17.5px)}
+.ladder b{font-weight:500;white-space:nowrap}
+.ladder li.h b{color:var(--slate)}
+.ladder li:not(.h) b{color:var(--gold)}
+.ladder span{color:var(--muted)}
+
+/* thread */
+.thread{border-top:1px solid var(--rule);padding-top:6px}
+.msg{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:14px;align-items:start;padding:12px 0;border-bottom:1px solid var(--rule2)}
+.msg i{width:10px;height:10px;border-radius:50%;background:var(--gold2);margin-top:7px}
+.msg.h i{background:var(--slate)}
+.msg b{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:3px}
+.msg.h b{color:var(--slate)}
+.msg p{font-size:clamp(15px,1.15vw,17.5px);color:var(--ink);line-height:1.4;max-width:52ch}
+.msg span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-top:4px}
+
+/* rings */
+.rings{position:relative;width:100%;aspect-ratio:1/1;max-height:60vh;margin:0 auto}
+.rings svg{width:100%;height:100%;overflow:visible}
+.rings circle{fill:none;stroke:var(--ink);stroke-width:.8}
+.rings text{font-family:'Fraunces',serif;font-size:15px;fill:var(--ink)}
+.rings text.s{font-family:'Instrument Sans',sans-serif;font-size:11px;fill:var(--muted)}
+
+/* economics */
+.econ{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,72px);margin-top:clamp(20px,3vh,36px);border-top:1px solid var(--rule);padding-top:20px}
+.econ h3{font-size:clamp(22px,2.2vw,32px);margin-bottom:10px}
+.econ .big{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(34px,3.8vw,60px);line-height:1;letter-spacing:-.02em;margin:6px 0 10px}
+.econ .big i{font-style:italic;color:var(--gold);font-size:.5em}
+.econ p{color:var(--ink2);font-size:clamp(15px,1.15vw,17.5px);max-width:40ch}
+.econ ul{list-style:none;margin-top:10px}
+.econ li{padding:8px 0;border-top:1px solid var(--rule2);font-size:clamp(14px,1.1vw,16.5px);color:var(--ink2)}
+
+/* close + sources */
+.close{align-content:end}
+.close .contact{display:grid;grid-template-columns:repeat(3,auto);gap:40px;margin-top:clamp(24px,4vh,44px);justify-content:start;border-top:1px solid var(--rule);padding-top:18px}
+.close .contact span{display:block;margin-bottom:4px}
+.close .contact div{font-size:17px}
+.sources{columns:2;column-gap:40px;margin-top:18px;border-top:1px solid var(--rule);padding-top:16px}
+.sources li{font-size:12.5px;color:var(--muted);line-height:1.4;padding:5px 0;break-inside:avoid;list-style:none}
+.sources li b{color:var(--ink2);font-weight:500}
+
+@media (max-width:980px){
+  body{font-size:15px}
+  .slide{padding:calc(var(--gy) + 56px) var(--gx) calc(var(--gy) + 48px);overflow-y:auto;align-content:start}
+  .prod,.prod.big,.prod.even,.persona,.econ{grid-template-columns:1fr}
+  .cover .fan{position:relative;right:auto;top:auto;width:100%;max-width:none;transform:none;margin-top:28px}
+  .cover.is-active .fan{animation:none}
+  .cover,.s-statement,.close{align-content:start}
+  .steps,.map,.stats{grid-template-columns:1fr 1fr}
+  .statrow{grid-template-columns:1fr 1fr}
+  .close .contact{grid-template-columns:1fr;gap:12px}
+  .hint{display:none}
+  .counter{right:16px}
+  .stage{display:none}
+  .sources{columns:1}
+  .rings{max-height:none}
+}
+@media (max-width:560px){
+  .steps,.map,.stats{grid-template-columns:1fr}
+  .stack{aspect-ratio:auto}
+  .stack .shot{position:relative;width:100%}
+  .stack .shot.b{margin-top:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  .slide,.fr,.progress i{transition:none!important}
+  .is-active .shot,.cover.is-active .fan{animation:none!important}
+}
+@media print{
+  @page{size:1440px 900px;margin:0}
+  html,body{overflow:visible;height:auto;background:var(--paper)}
+  body::after{display:none}
+  #deck{position:static}
+  .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;transform:none!important;height:900px;width:1440px;page-break-after:always;break-after:page;overflow:hidden;transition:none}
+  .fr{opacity:1!important;transform:none!important}
+  .chrome,.progress,.counter,.hint,.notes{display:none!important}
+  .is-active .shot,.shot,.cover .fan{animation:none!important;opacity:1!important}
+  .cover .fan{transform:translateY(-54%)!important}
+  .q{opacity:1!important}
+}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <div class="wordmark"><i></i>Jarvis Daily</div>
+  <div class="stage mono" id="stage"></div>
+</div>
+
+<main id="deck">
+
+<!-- 1 Cover -->
+<section class="slide cover" data-stage="" data-notes="Jarvis Daily in one line: your AI department, run by us. We audit a business, build the software and the AI employees it needs, then run them.">
+  <div class="fan" aria-hidden="true">
+    <figure class="shot a"><img src="img/proposal-rooms.jpg" alt=""></figure>
+    <figure class="shot b"><img src="img/crm-dashboard.jpg" alt=""></figure>
+    <figure class="shot c"><img src="img/trading-strategy-chart.jpg" alt=""></figure>
+  </div>
+  <div class="mono cap">Jarvis Daily, Pune</div>
+  <h1>Your AI department, <em>run by us.</em></h1>
+  <p class="lede">An AI automation agency and software company. We audit a business, build the software and the AI employees it needs, and run them every day.</p>
+  <div class="meta mono"><span>jarvisdaily.com</span><span>Tranquil Veda Private Limited</span><span>2026</span></div>
+</section>
+
+<!-- 2 The owner -->
+<section class="slide" data-stage="The owner" data-notes="Every owner we meet carries the same list in their head. Read a few of them out. These are the exact words we hear in audits.">
+  <div class="persona">
+    <div class="who">
+      <div class="mono cap">Meet the owner</div>
+      <h2>Forty people. A hundred open threads. One head holding it all.</h2>
+      <p>Running a growing business in India today sounds like this, every single week.</p>
+    </div>
+    <div class="wall" aria-label="What owners tell us">
+      <span class="q l fr">The social post did not go out again.</span>
+      <span class="q m fr">That proposal should have gone last week.</span>
+      <span class="q s fr">Nobody remembers what we told the client in March.</span>
+      <span class="q m g fr">Which AI tool is right for us? No idea.</span>
+      <span class="q l fr">Leads come in at eleven at night and wait till morning.</span>
+      <span class="q s fr">Follow-ups fall through the cracks.</span>
+      <span class="q m fr">The website looks fine. It brings no business.</span>
+      <span class="q s fr">Nobody answers the phone after six.</span>
+      <span class="q l g fr">I want more leads, more meetings, more conversions.</span>
+      <span class="q m fr">I am the only one who knows how everything works.</span>
+      <span class="q s fr">Operations run on WhatsApp and memory.</span>
+      <span class="q m fr">I cannot take a holiday without the business stopping.</span>
+      <span class="q l fr">How do I grow without hiring five more people?</span>
+      <span class="q s fr">Invoices go out late. Money comes in later.</span>
+      <span class="q m g fr">I want employees who work twenty-four seven.</span>
+      <span class="q s fr">Costs keep climbing. Margins do not.</span>
+      <span class="q m fr">I want to be found when people ask ChatGPT, not only Google.</span>
+      <span class="q s fr">I want to see every part of the business in one place.</span>
+      <span class="q m fr">I want a tool built for us, not another subscription.</span>
+      <span class="q l g fr">I want to be one step ahead, not catching up.</span>
+      <span class="q s fr">I want to use AI to speed everything up. Where do I start?</span>
+      <span class="q m fr">I want my company to be intelligent, not just busy.</span>
+    </div>
+  </div>
+</section>
+
+<!-- 3 The numbers -->
+<section class="slide s-statement" data-stage="The owner" data-notes="None of this is a feeling. It is measured. The research is on the last slide. Pick two: leads that wait an hour are seven times less likely to convert, and nearly half the customers now ask an AI for a recommendation while two thirds of businesses never appear in the answer.">
+  <h2>The worry is measured. <em>It costs money every week.</em></h2>
+  <div class="stats">
+    <div class="stat fr"><b>7<i>x</i></b><p>more likely to qualify a lead when a business replies within an hour. Most take a day. One in four never reply.</p><small>Harvard Business Review, 2,241 companies</small></div>
+    <div class="stat fr"><b>62<i>%</i></b><p>of calls to small businesses never reach a person. Most callers who hit voicemail hang up and call a competitor.</p><small>411 Locals; Invoca</small></div>
+    <div class="stat fr"><b>47<i>%</i></b><p>of calls to businesses arrive after hours or on weekends, when nobody is there to take them.</p><small>AnswerConnect, 2026</small></div>
+    <div class="stat fr"><b>1/3</b><p>of an owner's working week goes to admin, invoices and chasing, not to selling or building.</p><small>Xero; Startups Magazine</small></div>
+    <div class="stat fr"><b>45<i>%</i></b><p>of consumers now ask an AI for a business recommendation, up from 6 percent a year earlier. Two thirds of businesses appear in none of the answers.</p><small>BrightLocal 2026; AskedAbout</small></div>
+    <div class="stat fr"><b>1 in 4</b><p>Indian MSMEs has put AI to work. Most of the rest say they do not know which tools fit them or where to begin.</p><small>Vi Business MSME study, 2026</small></div>
+  </div>
+</section>
+
+<!-- 4 Where we come in -->
+<section class="slide s-statement" data-stage="Where we come in" data-notes="This is where we come in. Not with a tool. With a department. We write the software a business actually needs, add AI employees for the repeated work, and sit inside the business while we do it.">
+  <h2>This is where <em>we come in.</em></h2>
+  <div class="three">
+    <div class="b fr"><div class="n">1</div><div><h3>Custom software</h3><p>The CRM, the dashboard, the engine a business actually needs. Built around how they already work, not a template they must bend to.</p></div></div>
+    <div class="b fr"><div class="n">2</div><div><h3>AI employees</h3><p>Agents that do the repeated work twenty-four seven: replies, calls, research, drafts, follow-ups, reports. People keep the judgment.</p></div></div>
+    <div class="b fr"><div class="n">3</div><div><h3>Forward-deployed engineers</h3><p>We sit inside the business, learn how it runs, build next to the team, and keep running what we built.</p></div></div>
+  </div>
+</section>
+
+<!-- 5 What exactly we do -->
+<section class="slide s-statement" data-stage="What we do" data-notes="The full map of what we build and run. Four areas. Every item here is something we have shipped for a client or run for ourselves.">
+  <h2>What exactly <em>we do.</em></h2>
+  <div class="map">
+    <div class="fr"><h3>Sales</h3><ul><li>Leads captured on web and WhatsApp, day and night</li><li>An AI call-back within a minute, in English, Hindi or Marathi</li><li>Follow-ups that never slip</li><li>Proposals drafted in minutes</li><li>Meetings booked while you sleep</li></ul></div>
+    <div class="fr"><h3>Marketing</h3><ul><li>Social posts researched, drafted and sent on schedule</li><li>Content written for Google and for AI engines (SEO, AEO, GEO)</li><li>Websites that bring business, built in days</li><li>Reviews asked for and answered</li><li>Monthly numbers, explained</li></ul></div>
+    <div class="fr"><h3>Operations</h3><ul><li>A CRM built around your process</li><li>Invoices, reminders and collections on time</li><li>A dashboard of the whole business</li><li>A second brain that remembers every client</li><li>A chief of staff that runs the day</li></ul></div>
+    <div class="fr"><h3>Technology</h3><ul><li>Custom software and engines</li><li>Voice agents that call and answer</li><li>WhatsApp assistants for customers and staff</li><li>Trading and planning engines from your own rules</li><li>An Agent OS for the whole company</li></ul></div>
+  </div>
+</section>
+
+<!-- 6 The audit -->
+<section class="slide s-statement" data-stage="How we work" data-notes="Every engagement starts with an audit, never a pitch. Who does what, which tools, where the hours go. Then findings, a proposal with a working demo, a walkthrough, a build in weeks, and a retainer to run it.">
+  <h2>It always starts <em>with an AI audit.</em></h2>
+  <p class="lede">We do not start by selling a tool. We start by understanding where your hours and your leads go.</p>
+  <div class="steps">
+    <div class="step fr"><div class="n">1</div><h3>AI audit</h3><p>Who does what, which tools, where the hours go. Part of it is done by our own AI interviewer.</p></div>
+    <div class="step fr"><div class="n">2</div><h3>Findings</h3><p>A short map of where AI fits: sales, marketing, operations, finance. Three to five quick wins.</p></div>
+    <div class="step fr"><div class="n">3</div><h3>Proposal</h3><p>What we will build, in plain words, with a working demo where we can.</p></div>
+    <div class="step fr"><div class="n">4</div><h3>Walkthrough</h3><p>We go through it together. You say yes, no, or change this.</p></div>
+    <div class="step fr"><div class="n">5</div><h3>Build</h3><p>Weeks, not months. A dashboard shows what was built and how it works.</p></div>
+    <div class="step fr"><div class="n">6</div><h3>Run and improve</h3><p>Your AI employees work every day. We keep tuning them with your team.</p></div>
+  </div>
+</section>
+
+<!-- 7 Sales done -->
+<section class="slide" data-stage="How sales gets done" data-notes="Sales, done. A buyer lands on the site at eleven at night, chats in English or Marathi, leaves a number. A voice call goes out within a minute, qualifies, books the visit. The proposal is drafted in minutes. Nothing waits for morning.">
+  <div class="prod big">
+    <div class="copy">
+      <div class="mono cap">Sales</div>
+      <h2>Nothing waits for morning.</h2>
+      <ul class="lines">
+        <li class="fr"><b>Every enquiry answered, day and night</b><span>web chat and WhatsApp, in the buyer's language</span></li>
+        <li class="fr"><b>A call-back within a minute</b><span>an AI voice agent qualifies the lead and books the visit</span></li>
+        <li class="fr"><b>Proposals in minutes, follow-ups on time</b><span>meetings land on your calendar while you sleep</span></li>
+      </ul>
+    </div>
+    <div class="stack">
+      <figure class="shot a"><img src="img/realty-chat.jpg" alt="A property chat assistant answering a buyer"><figcaption>Property chat, live</figcaption></figure>
+      <figure class="shot b tall"><img src="img/loan-form.jpg" alt="A loan enquiry form with instant alerts"><figcaption>Enquiry form with instant alerts</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 8 Marketing done -->
+<section class="slide" data-stage="How marketing gets done" data-notes="Marketing, done. Posts go out on schedule because an agent researches, drafts and queues them. Pages are written so that Google and the AI engines both find the business. The website is built to bring business, not to decorate.">
+  <div class="prod big">
+    <div class="copy">
+      <div class="mono cap">Marketing</div>
+      <h2>Found by Google, and by the AI engines.</h2>
+      <ul class="lines">
+        <li class="fr"><b>Posts that actually go out</b><span>researched, drafted, approved, scheduled</span></li>
+        <li class="fr"><b>Written for search and for AI answers</b><span>SEO, AEO and GEO scored and fixed</span></li>
+        <li class="fr"><b>A website that brings business</b><span>built in days, with a working assistant on it</span></li>
+      </ul>
+    </div>
+    <div class="stack">
+      <figure class="shot a"><img src="img/search-how.jpg" alt="How the search audit works"><figcaption>Search audit, how it works</figcaption></figure>
+      <figure class="shot b"><img src="img/search-home.jpg" alt="The search-visibility product"><figcaption>Search-visibility product</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 9 Operations done -->
+<section class="slide" data-stage="How operations get done" data-notes="Operations, done. One CRM built around the process, a dashboard of the whole business, reminders raised automatically, invoices on time. This is a real one, for a mutual fund distribution firm.">
+  <div class="prod big">
+    <div class="copy">
+      <div class="mono cap">Operations</div>
+      <h2>The whole business in one place.</h2>
+      <ul class="lines">
+        <li class="fr"><b>A CRM built around your process</b><span>clients, prospects, tasks, reviews, meetings</span></li>
+        <li class="fr"><b>Reminders raised by the system, not by memory</b><span>follow-up calls auto-raised with a 91 percent completion rate</span></li>
+        <li class="fr"><b>The morning dashboard</b><span>assets, pipeline, what is overdue, who is on it</span></li>
+      </ul>
+    </div>
+    <div class="stack">
+      <figure class="shot a"><img src="img/crm-investors.jpg" alt="The CRM's investors module"><figcaption>Investors module</figcaption></figure>
+      <figure class="shot b"><img src="img/crm-dashboard.jpg" alt="The CRM's morning dashboard"><figcaption>Morning dashboard</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 10 Agent OS -->
+<section class="slide" data-stage="The Agent OS" data-notes="Put together, this is an operating system for the company. A chief of staff at the centre, one AI teammate per department, one shared memory. AI does the legwork; people give judgment at fixed gates; every correction teaches the agent.">
+  <div class="prod">
+    <div class="copy">
+      <div class="mono cap">The Agent OS</div>
+      <h2>A chief of staff, a teammate per department, one shared memory.</h2>
+      <ul class="ladder">
+        <li class="fr"><b>The chief of staff runs the day</b><span>reads the memory, assigns work, chases what is late</span></li>
+        <li class="fr"><b>AI does the legwork</b><span>research, drafts, first versions, follow-ups</span></li>
+        <li class="h fr"><b>People give judgment</b><span>taste and approval at fixed gates</span></li>
+        <li class="fr"><b>Every correction teaches</b><span>the agent learns that person's taste</span></li>
+        <li class="h fr"><b>Just talk to it</b><span>on WhatsApp, or by voice</span></li>
+      </ul>
+    </div>
+    <div class="os" aria-label="Six departments around a chief of staff"><svg viewBox="0 0 520 445" id="ossvg"></svg></div>
+  </div>
+</section>
+
+<!-- 11 A working morning -->
+<section class="slide" data-stage="The Agent OS" data-notes="What a working morning looks like inside the OS. The chief of staff opens a thread from a deadline it found in the memory. Each department agent answers with what it has. The draft goes to a person for taste and approval. Nothing leaves without a human yes.">
+  <div class="prod">
+    <div class="copy">
+      <div class="mono cap">A working morning</div>
+      <h2>Your team, before you have had your tea.</h2>
+      <ul class="lines">
+        <li class="fr"><b>The chief of staff opens the thread</b><span>from a deadline it found in the memory</span></li>
+        <li class="fr"><b>Each department answers with what it has</b><span>case studies, a draft, the client's payment history</span></li>
+        <li class="fr"><b>A person gives the yes</b><span>taste and approval, then it goes out</span></li>
+      </ul>
+    </div>
+    <div class="thread" aria-label="Agents coordinating in a thread">
+      <div class="msg fr"><i></i><div><b>Chief of staff</b><p>The pitch for the Kolhapur hotel is due Friday. What do we have?</p></div><span>09:02</span></div>
+      <div class="msg fr"><i></i><div><b>Marketing agent</b><p>Three matching case studies in memory, all hospitality. Pulling them with the before and after photos.</p></div><span>09:02</span></div>
+      <div class="msg fr"><i></i><div><b>Sales agent</b><p>First draft of the proposal in fourteen minutes. Scope from the brief, rates from the rate library, their last two meetings as context.</p></div><span>09:03</span></div>
+      <div class="msg fr"><i></i><div><b>Finance agent</b><p>Their last three invoices cleared on time. No credit flag. Suggested payment terms attached.</p></div><span>09:03</span></div>
+      <div class="msg fr"><i></i><div><b>Chief of staff</b><p>Draft goes to the design lead at four for taste and approval. Nothing leaves without a human yes.</p></div><span>09:04</span></div>
+      <div class="msg h fr"><i></i><div><b>Design lead</b><p>Shorten the fee section and lead with the resort project. Approved.</p></div><span>16:10</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 Second brain -->
+<section class="slide" data-stage="The second brain" data-notes="The second brain is layered memory. General knowledge at the outside, then your industry, then your company's own way of working, then each client, then each project. Every agent reads it before acting and writes to it after. That is how the company stops depending on one person's memory.">
+  <div class="prod even">
+    <div class="copy">
+      <div class="mono cap">The second brain</div>
+      <h2>Your company stops depending on one person's memory.</h2>
+      <ul class="lines">
+        <li class="fr"><b>Built in layers from your own data</b><span>general knowledge, your industry, your company, each client, each project</span></li>
+        <li class="fr"><b>Every agent reads it before acting and writes to it after</b><span>a booked meeting, a sent proposal, a paid invoice, a lesson learned</span></li>
+        <li class="fr"><b>Searchable by anyone on the team</b><span>what did we tell this client in March? It is there.</span></li>
+      </ul>
+    </div>
+    <div class="rings" aria-label="Layers of memory"><svg viewBox="0 0 520 520" id="rings"></svg></div>
+  </div>
+</section>
+
+<!-- 13 Case: trading desk -->
+<section class="slide" data-stage="Case study" data-notes="A commodity trading desk gave us their rules. We wrote them as configuration, ran every strategy on paper first, then live with a kill switch. Sixty-six strategies across eleven accounts on one board. The owner's own words on the last line.">
+  <div class="prod even">
+    <div class="copy">
+      <div class="mono cap">Case study: a commodity trading desk</div>
+      <h2>Their rules, executed by software, on every account at once.</h2>
+      <div class="statrow">
+        <div class="fr"><b>66</b><span>strategies written as configuration, across index, silver, gold and gas</span></div>
+        <div class="fr"><b>11</b><span>client accounts on one operator board</span></div>
+        <div class="fr"><b>883</b><span>trades evaluated in a single paper session before a rupee went live</span></div>
+        <div class="fr"><b>1</b><span>kill switch that squares off everything in one click</span></div>
+      </div>
+      <p class="owner fr">"Every rule we used to watch by hand now runs on its own, and I can stop all of it in one click."<small>Owner's words</small></p>
+    </div>
+    <figure class="shot"><img src="img/trading-board.jpg" alt="The trading platform's operator board"><figcaption>Operator board, live</figcaption></figure>
+  </div>
+</section>
+
+<!-- 14 Case: distributor -->
+<section class="slide" data-stage="Case study" data-notes="A mutual fund distribution firm: four thousand investors, over twelve hundred crore under management, thirteen thousand SIPs, on a CRM we built around their process. Follow-up calls are raised by the system with a ninety-one percent completion rate. The owner's estimate on the last line.">
+  <div class="prod even">
+    <div class="copy">
+      <div class="mono cap">Case study: a mutual fund distribution firm</div>
+      <h2>Nineteen modules, one login, the whole book in view.</h2>
+      <div class="statrow">
+        <div class="fr"><b>4,007</b><span>investors managed in the CRM</span></div>
+        <div class="fr"><b>Rs 1,289 Cr</b><span>of assets under management, live on the dashboard</span></div>
+        <div class="fr"><b>12,989</b><span>active SIPs, Rs 15.6 crore a month</span></div>
+        <div class="fr"><b>91%</b><span>completion on follow-up calls the system raises by itself</span></div>
+      </div>
+      <p class="owner fr">"Half the team's week moved from spreadsheets to client conversations."<small>Owner's estimate</small></p>
+    </div>
+    <figure class="shot"><img src="img/crm-dashboard.jpg" alt="The CRM dashboard"><figcaption>Morning dashboard, live</figcaption></figure>
+  </div>
+</section>
+
+<!-- 15 Case: architects -->
+<section class="slide" data-stage="Case study" data-notes="An architecture practice wrote every proposal from three documents by hand. Now one engine drafts the proposal with a chapter and concept images for every room, the architect edits it by chat, and every version is kept. Forty-six proposals in the first months.">
+  <div class="prod even">
+    <div class="copy">
+      <div class="mono cap">Case study: an architecture practice</div>
+      <h2>Proposals that took days now go out the same day.</h2>
+      <div class="statrow">
+        <div class="fr"><b>46</b><span>proposals drafted on the engine in its first months</span></div>
+        <div class="fr"><b>13</b><span>sections and 7 rooms of concept images in one draft, in minutes</span></div>
+        <div class="fr"><b>9</b><span>versions of one proposal kept, every edit traceable</span></div>
+        <div class="fr"><b>1</b><span>chat box to edit it, in English or Marathi</span></div>
+      </div>
+      <p class="owner fr">"We send more proposals, faster, and clients see their rooms before they sign."<small>Owner's words</small></p>
+    </div>
+    <figure class="shot"><img src="img/proposal-rooms.jpg" alt="Concept images generated for each room of a proposal"><figcaption>Room concepts, generated for the proposal</figcaption></figure>
+  </div>
+</section>
+
+<!-- 16 Case: planning engine + search -->
+<section class="slide" data-stage="Case study" data-notes="Two more. A wealth planning firm ran its planning in a complex Excel workbook; we rebuilt it as software that reproduces their numbers to within a twentieth of a percent, so a plan takes minutes instead of a day. And a search-visibility product that audits any website with 127 checks in minutes and sells its own reports.">
+  <div class="prod even">
+    <div class="copy">
+      <div class="mono cap">Case studies: a planning firm, a search product</div>
+      <h2>An Excel workbook became an engine. An audit became a product.</h2>
+      <div class="statrow">
+        <div class="fr"><b>8 of 8</b><span>of the firm's formulas reproduced, within 0.05 percent</span></div>
+        <div class="fr"><b>Minutes</b><span>for a full plan, charts and a pack the client opens on their phone</span></div>
+        <div class="fr"><b>127</b><span>automated checks in one website audit</span></div>
+        <div class="fr"><b>2 to 15</b><span>minutes from URL to a scored report, paid online</span></div>
+      </div>
+      <p class="owner fr">"A plan that took an afternoon now takes the length of the meeting."<small>Owner's words</small></p>
+    </div>
+    <figure class="shot tall"><img src="img/planner-engine.jpg" alt="The planning engine producing a plan"><figcaption>Planning engine, live</figcaption></figure>
+  </div>
+</section>
+
+<!-- 17 Economics -->
+<section class="slide s-statement" data-stage="What it costs" data-notes="What it costs and what it replaces. A build fee, then a monthly retainer between fifteen and forty thousand rupees for AI employees that work around the clock. Compare that with one junior hire, plus the manager's time. Third-party AI and hosting stay on the client's own accounts at cost.">
+  <h2>What it costs, <em>and what it replaces.</em></h2>
+  <div class="econ">
+    <div class="fr">
+      <h3>With Jarvis Daily</h3>
+      <div class="big">Rs 15,000 to 40,000<i> a month</i></div>
+      <p>The retainer for an AI department that works twenty-four seven, after a one-time build that ranges from a few weeks to a few months of work depending on scope.</p>
+      <ul>
+        <li>Never on leave, never off the phone, never forgets a follow-up</li>
+        <li>Grows with the business without a new hire for every new task</li>
+        <li>Third-party AI and hosting on your own accounts, at cost, no markup</li>
+      </ul>
+    </div>
+    <div class="fr">
+      <h3>The alternative</h3>
+      <div class="big">One more hire<i> per task</i></div>
+      <p>A junior employee for the same money, for eight hours a day, plus training, management and the knowledge that leaves when they do.</p>
+      <ul>
+        <li>Leads still wait overnight and over weekends</li>
+        <li>The process still lives in one person's head</li>
+        <li>Every new task means another person to find, train and keep</li>
+      </ul>
+    </div>
+  </div>
+  <p class="lede fr" style="margin-top:22px">If it saves one person's week or wins one extra client a month, it has paid for itself.</p>
+</section>
+
+<!-- 18 Why us -->
+<section class="slide" data-stage="Why Jarvis Daily" data-notes="Why us. Founder-led engineering: the person who designs the system builds it. Nine businesses across very different sectors in six months. And we run our own company on the same operating system, so we eat what we cook.">
+  <div class="prod big">
+    <div class="copy">
+      <div class="mono cap">Why Jarvis Daily</div>
+      <h2>We run our own company on the same system.</h2>
+      <ul class="lines">
+        <li class="fr"><b>Founder-led engineering</b><span>the people who design your system are the people who build it</span></li>
+        <li class="fr"><b>Nine businesses in six months</b><span>trading, wealth, architecture, real estate, food, lending, a designers' body</span></li>
+        <li class="fr"><b>A human approves anything that goes out</b><span>drafts, calls, posts and payments all pass a person first</span></li>
+      </ul>
+    </div>
+    <figure class="shot"><img src="img/jarvis-city-dusk.jpg" alt="Jarvis City, our own company drawn as a town" style="object-position:center"><figcaption>Jarvis City, our own Agent OS, live</figcaption></figure>
+  </div>
+</section>
+
+<!-- 19 How to start -->
+<section class="slide s-statement" data-stage="How to start" data-notes="How to start: a twenty-minute conversation and an AI audit. What you get back: a map of where your hours and leads go, three to five quick wins, and a proposal with a working demo. Shruti is the contact.">
+  <h2>Start with <em>an AI audit.</em></h2>
+  <p class="lede">A twenty-minute conversation, then our audit of how your business runs today.</p>
+  <div class="three">
+    <div class="b fr"><div class="n">1</div><div><h3>A map of where the hours go</h3><p>Who does what, which tools you pay for, where leads and follow-ups are lost.</p></div></div>
+    <div class="b fr"><div class="n">2</div><div><h3>Three to five quick wins</h3><p>The first things an AI employee should take off your team's plate, in order.</p></div></div>
+    <div class="b fr"><div class="n">3</div><div><h3>A proposal with a working demo</h3><p>What we would build and run, in plain words, with something you can click.</p></div></div>
+  </div>
+</section>
+
+<!-- 20 Close -->
+<section class="slide close" data-stage="" data-notes="Close. Your business, running while you sleep. Shruti is the contact for anything that follows.">
+  <h1>Your business, <em>running while you sleep.</em></h1>
+  <p class="lede" style="margin-top:18px">Jarvis Daily. Your AI department, run by us.</p>
+  <div class="contact">
+    <div><span class="mono">Contact</span>Shruti Pethkar</div>
+    <div><span class="mono">Email</span>shruti@jarvisdaily.com</div>
+    <div><span class="mono">WhatsApp</span>+91 96737 58777</div>
+  </div>
+</section>
+
+<!-- 21 Sources -->
+<section class="slide" data-stage="Sources" data-notes="Sources for the numbers on slide three.">
+  <div class="mono cap">Sources</div>
+  <h2 style="font-size:clamp(26px,2.6vw,40px)">Where the numbers come from.</h2>
+  <ul class="sources">
+    <li><b>Lead response.</b> Oldroyd, McElheran, Elkington, "The Short Life of Online Sales Leads", Harvard Business Review, March 2011: an audit of 2,241 US companies; replying within an hour made firms nearly seven times more likely to qualify the lead; 23 percent never replied.</li>
+    <li><b>Five-minute rule.</b> Oldroyd, MIT Sloan and InsideSales Lead Response Management study, 2007: qualification odds fall 21 times between a 5-minute and a 30-minute response.</li>
+    <li><b>Unanswered calls.</b> 411 Locals call study: 37.8 percent of calls to small businesses answered live, 62 percent unanswered; Invoca and industry data: 80 to 85 percent of callers who reach voicemail hang up.</li>
+    <li><b>After hours.</b> AnswerConnect call data, September 2026: 47 percent of calls to businesses occur outside Monday to Friday working hours.</li>
+    <li><b>Admin time.</b> Xero, "The hidden time tax", and Startups Magazine survey: owners spend roughly a third of the week on admin and nearly twice as long on admin as on growing the business.</li>
+    <li><b>AI recommendations.</b> BrightLocal Local Consumer Review Survey 2026: 45 percent of consumers have asked an AI tool for a business recommendation, up from 6 percent; AskedAbout audit, August 2026: 67 percent of audited businesses appeared in none of the AI answers. Yext 2026: 28 percent tried a new business because of an AI recommendation.</li>
+    <li><b>India MSMEs.</b> Vi Business MSME Growth Insights Study 2026: one in four MSMEs has integrated AI tools; 57 percent see AI as a vital growth driver.</li>
+    <li><b>Case-study figures</b> are read from the live products as of October 2026. Lines marked "owner's words" or "owner's estimate" are the clients' own statements, not measured by us.</li>
+  </ul>
+</section>
+
+</main>
+
+<div class="progress"><i id="bar"></i></div>
+<div class="counter mono" id="counter"></div>
+<div class="hint mono" id="hint"><kbd>&rarr;</kbd> next <kbd>&larr;</kbd> back <kbd>F</kbd> full screen <a href="Jarvis-Daily.pdf">PDF</a></div>
+<div class="notes" id="notes" hidden></div>
+
+<script>
+(function(){
+'use strict';
+var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+var cur = -1, fragIdx = 0;
+var bar = document.getElementById('bar'), counter = document.getElementById('counter'), stage = document.getElementById('stage'), hint = document.getElementById('hint'), notes = document.getElementById('notes');
+var hooks = {};
+function frags(i){ return Array.prototype.slice.call(slides[i].querySelectorAll('.fr')); }
+function showFrags(i, n){ frags(i).forEach(function(el,k){ el.classList.toggle('on', k < n); }); }
+function preload(i){ for (var k = i + 1; k <= i + 2 && k < slides.length; k++){ slides[k].querySelectorAll('img').forEach(function(im){ var p = new Image(); p.src = im.getAttribute('src'); }); } }
+function go(i, dir, allFrags){
+  if (i < 0 || i >= slides.length || i === cur) return;
+  if (cur >= 0){ slides[cur].classList.remove('is-active'); slides[cur].classList.toggle('back', dir > 0); if (hooks[cur] && hooks[cur].leave) hooks[cur].leave(); }
+  cur = i; var s = slides[i];
+  s.classList.toggle('back', dir < 0); void s.offsetWidth; s.classList.add('is-active');
+  var fs = frags(i); fragIdx = allFrags ? fs.length : 0; showFrags(i, fragIdx);
+  bar.style.width = (i / (slides.length - 1) * 100) + '%';
+  counter.textContent = (i + 1) + ' / ' + slides.length;
+  stage.textContent = s.getAttribute('data-stage') || '';
+  hint.style.opacity = i === 0 ? 1 : 0;
+  if (!notes.hidden) renderNotes();
+  if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+  if (hooks[i] && hooks[i].enter) hooks[i].enter();
+  preload(i);
+}
+function next(){ var fs = frags(cur); if (fragIdx < fs.length){ fragIdx = Math.min(fs.length, fragIdx + (slides[cur].querySelector('.wall') ? 4 : 1)); showFrags(cur, fragIdx); return; } go(cur + 1, 1, false); }
+function prev(){ if (fragIdx > 0){ fragIdx = Math.max(0, fragIdx - (slides[cur].querySelector('.wall') ? 4 : 1)); showFrags(cur, fragIdx); return; } go(cur - 1, -1, true); }
+function renderNotes(){ notes.innerHTML = '<b>' + (cur + 1) + '</b>' + (slides[cur].getAttribute('data-notes') || ''); }
+document.addEventListener('keydown', function(e){
+  if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName) && e.key !== 'Escape') return;
+  switch (e.key){
+    case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': case 'Enter': e.preventDefault(); next(); break;
+    case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace': e.preventDefault(); prev(); break;
+    case 'Home': go(0, -1, false); break;
+    case 'End': go(slides.length - 1, 1, true); break;
+    case 'n': case 'N': notes.hidden = !notes.hidden; if (!notes.hidden) renderNotes(); break;
+    case 'f': case 'F': if (document.fullscreenElement) document.exitFullscreen(); else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); break;
+    case 'Escape': notes.hidden = true; break;
+  }
+});
+document.getElementById('deck').addEventListener('click', function(e){ if (e.target.closest('[data-noadvance], input, button, a')) return; if (e.clientX / window.innerWidth < 0.2) prev(); else next(); });
+var tx = null, ty = null;
+document.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive:true});
+document.addEventListener('touchend', function(e){ if (tx === null) return; var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4){ if (dx < 0) next(); else prev(); } tx = ty = null; }, {passive:true});
+
+/* agent OS diagram */
+(function(){
+  var svg = document.getElementById('ossvg'); if (!svg) return;
+  var NS = 'http://www.w3.org/2000/svg', cx = 260, cy = 205, R = 158;
+  var deps = ['Projects', 'Marketing', 'Sales', 'Finance', 'Admin', 'People'];
+  function el(n, a){ var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  svg.appendChild(el('circle', {cx: cx, cy: cy, r: 58, 'class': 'hub'}));
+  svg.appendChild(el('circle', {cx: cx, cy: cy, r: 70, 'class': 'hub', 'stroke-dasharray': '2 4', 'opacity': .6}));
+  var t = el('text', {x: cx, y: cy - 3, 'text-anchor': 'middle'}); t.textContent = 'Chief of'; svg.appendChild(t);
+  t = el('text', {x: cx, y: cy + 16, 'text-anchor': 'middle'}); t.textContent = 'staff'; svg.appendChild(t);
+  t = el('text', {x: cx, y: cy + 84, 'text-anchor': 'middle', 'class': 's'}); t.textContent = 'the ring is the shared memory'; svg.appendChild(t);
+  deps.forEach(function(d, i){
+    var a = -Math.PI / 2 + i * Math.PI * 2 / deps.length, x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+    var x1 = cx + Math.cos(a) * 66, y1 = cy + Math.sin(a) * 66, x2 = cx + Math.cos(a) * (R - 26), y2 = cy + Math.sin(a) * (R - 26);
+    svg.appendChild(el('line', {x1: x1, y1: y1, x2: x2, y2: y2, 'class': 'spoke'}));
+    svg.appendChild(el('circle', {cx: x, cy: y, r: 3, fill: '#17181C'}));
+    var side = Math.cos(a) > .1 ? 'start' : (Math.cos(a) < -.1 ? 'end' : 'middle');
+    var ox = side === 'start' ? 10 : (side === 'end' ? -10 : 0), oy = Math.sin(a) < -.5 ? -12 : (Math.sin(a) > .5 ? 24 : 5);
+    var tt = el('text', {x: x + ox, y: y + oy, 'text-anchor': side}); tt.textContent = d; svg.appendChild(tt);
+    var ag = el('text', {x: x + ox, y: y + oy + 15, 'text-anchor': side, 'class': 's'}); ag.textContent = 'one agent, the team'; svg.appendChild(ag);
+    if (!RM){
+      var p = el('circle', {r: 3, 'class': 'pulse'}); var am = el('animateMotion', {dur: (3.4 + i * 0.37) + 's', repeatCount: 'indefinite', path: 'M' + x2 + ',' + y2 + ' L' + x1 + ',' + y1}); p.appendChild(am); svg.appendChild(p);
+      var h = el('circle', {r: 3, 'class': 'human'}); var am2 = el('animateMotion', {dur: (4.3 + i * 0.29) + 's', repeatCount: 'indefinite', path: 'M' + x1 + ',' + y1 + ' L' + x2 + ',' + y2}); h.appendChild(am2); svg.appendChild(h);
+    }
+  });
+  var k = el('text', {x: cx, y: 434, 'text-anchor': 'middle', 'class': 's'}); k.textContent = 'Gold: agents writing what they did. Blue: people deciding at the gates.'; svg.appendChild(k);
+})();
+
+/* memory rings */
+(function(){
+  var svg = document.getElementById('rings'); if (!svg) return;
+  var NS = 'http://www.w3.org/2000/svg', cx = 260, cy = 260;
+  function el(n, a){ var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  var layers = [
+    ['This project', 'the brief, the drafts, the decisions', 54],
+    ['This client', 'every meeting, proposal, invoice, preference', 102],
+    ['Your company', 'how you work, your rates, your taste', 150],
+    ['Your industry', 'what good looks like in your trade', 198],
+    ['General knowledge', 'what the models already know', 246]
+  ];
+  layers.slice().reverse().forEach(function(L, i){ svg.appendChild(el('circle', {cx: cx, cy: cy, r: L[2], opacity: (0.35 + i * 0.16).toFixed(2)})); });
+  layers.forEach(function(L, i){
+    var y = cy - L[2] + 18 + (i === 0 ? 2 : 0);
+    var t = el('text', {x: cx, y: y, 'text-anchor': 'middle'}); t.textContent = L[0]; svg.appendChild(t);
+    var s = el('text', {x: cx, y: y + 15, 'text-anchor': 'middle', 'class': 's'}); s.textContent = L[1]; svg.appendChild(s);
+  });
+  var c = el('circle', {cx: cx, cy: cy, r: 3, fill: '#C9A227', stroke: 'none'}); svg.appendChild(c);
+})();
+
+var rt = 0; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ if (hooks[cur] && hooks[cur].enter){ if (hooks[cur].leave) hooks[cur].leave(); hooks[cur].enter(); } }, 200); });
+var h = parseInt((location.hash || '').replace('#', ''), 10);
+go(isNaN(h) ? 0 : Math.max(0, Math.min(slides.length - 1, h - 1)), 1, false);
+})();
+</script>
+</body>
+</html>

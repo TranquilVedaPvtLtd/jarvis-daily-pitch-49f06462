@@ -349,6 +349,23 @@ a{color:inherit}
   <div class="meta mono"><span>jarvisdaily.com</span><span>Tranquil Veda Private Limited</span><span>2026</span></div>
 </section>
 
+<!-- 1b Film -->
+<section class="slide" data-stage="One minute" data-notes="Press play. One minute, end to end: how a business used to run, what changed, what we do, what it has done so far, and how to start. Voice and music are in the file, so share it as it is.">
+  <div class="prod even">
+    <div class="copy">
+      <div class="mono cap">One minute, end to end</div>
+      <h2>The whole story, <em>in sixty seconds.</em></h2>
+      <ul class="lines">
+        <li class="fr"><b>How a business used to run</b><span>one person, remembering everything</span></li>
+        <li class="fr"><b>What changed, and what we do</b><span>an AI department, run by us</span></li>
+        <li class="fr"><b>What it has done so far</b><span>and how to start</span></li>
+      </ul>
+      <p class="small" style="margin-top:14px;color:var(--muted);font-size:14px">Sound on. <a href="film.mp4" download style="text-decoration:none;border-bottom:1px solid var(--rule)">Download the film</a> to share it on its own.</p>
+    </div>
+    <figure class="shot video" data-noadvance><video id="filmvid" controls playsinline preload="metadata" poster="img/film-poster.jpg" style="background:#F4EFE6"><source src="film.mp4" type="video/mp4"></video><img class="poster" src="img/film-poster.jpg" alt="A frame from the one-minute film"></figure>
+  </div>
+</section>
+
 <!-- 2 The owner -->
 <section class="slide" data-stage="The founder" data-notes="Every founder we meet carries the same thoughts. Let the bubbles fill the screen, then read three of them out. These are the exact words we hear in audits. No names, no faces: this is every owner.">
   <div class="mono cap">Inside a founder's head, any given Tuesday</div>
@@ -377,7 +394,7 @@ a{color:inherit}
 </section>
 
 <!-- 3 The numbers -->
-<section class="slide s-statement" data-stage="The owner" data-notes="None of this is a feeling. It is measured. The research is on the last slide. Pick two: leads that wait an hour are seven times less likely to convert, and nearly half the customers now ask an AI for a recommendation while two thirds of businesses never appear in the answer.">
+<section class="slide s-statement" data-stage="The owner" data-notes="None of this is a feeling. It is measured; each number carries its source. Pick two: leads that wait an hour are seven times less likely to convert, and nearly half the customers now ask an AI for a recommendation while two thirds of businesses never appear in the answer.">
   <h2>The worry is measured. <em>It costs money every week.</em></h2>
   <div class="stats">
     <div class="stat fr"><b>7<i>x</i></b><p>more likely to qualify a lead when a business replies within an hour. Most take a day. One in four never reply.</p><small>Harvard Business Review, 2,241 companies</small></div>
@@ -745,22 +762,6 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- 21 Sources -->
-<section class="slide" data-stage="Sources" data-notes="Sources for the numbers on slide three.">
-  <div class="mono cap">Sources</div>
-  <h2 style="font-size:clamp(26px,2.6vw,40px)">Where the numbers come from.</h2>
-  <ul class="sources">
-    <li><b>Lead response.</b> Oldroyd, McElheran, Elkington, "The Short Life of Online Sales Leads", Harvard Business Review, March 2011: an audit of 2,241 US companies; replying within an hour made firms nearly seven times more likely to qualify the lead; 23 percent never replied.</li>
-    <li><b>Five-minute rule.</b> Oldroyd, MIT Sloan and InsideSales Lead Response Management study, 2007: qualification odds fall 21 times between a 5-minute and a 30-minute response.</li>
-    <li><b>Unanswered calls.</b> 411 Locals call study: 37.8 percent of calls to small businesses answered live, 62 percent unanswered; Invoca and industry data: 80 to 85 percent of callers who reach voicemail hang up.</li>
-    <li><b>After hours.</b> AnswerConnect call data, September 2026: 47 percent of calls to businesses occur outside Monday to Friday working hours.</li>
-    <li><b>Admin time.</b> Xero, "The hidden time tax", and Startups Magazine survey: owners spend roughly a third of the week on admin and nearly twice as long on admin as on growing the business.</li>
-    <li><b>AI recommendations.</b> BrightLocal Local Consumer Review Survey 2026: 45 percent of consumers have asked an AI tool for a business recommendation, up from 6 percent; AskedAbout audit, August 2026: 67 percent of audited businesses appeared in none of the AI answers. Yext 2026: 28 percent tried a new business because of an AI recommendation.</li>
-    <li><b>India MSMEs.</b> Vi Business MSME Growth Insights Study 2026: one in four MSMEs has integrated AI tools; 57 percent see AI as a vital growth driver.</li>
-    <li><b>Case-study figures</b> are read from the live products as of October 2026. Lines marked "owner's words" or "owner's estimate" are the clients' own statements, not measured by us.</li>
-  </ul>
-</section>
-
 </main>
 
 <div class="progress"><i id="bar"></i></div>
@@ -847,6 +848,7 @@ document.addEventListener('touchend', function(e){ if (tx === null) return; var 
 })();
 /* video + personalised cover */
 (function(){
+  var fv = document.getElementById('filmvid'); if (fv){ var fi = slides.indexOf(fv.closest('.slide')); hooks[fi] = { leave: function(){ fv.pause(); } }; }
   var vid = document.getElementById('cityvid'); if (vid){ var idx = slides.indexOf(vid.closest('.slide')); hooks[idx] = { enter: function(){ if (!RM){ var pr = vid.play(); if (pr && pr.catch) pr.catch(function(){}); } }, leave: function(){ vid.pause(); } }; }
   try { var who = new URLSearchParams(location.search).get('for'); if (who && who.length < 80){ var el = document.getElementById('for'); el.textContent = 'Prepared for ' + who; el.hidden = false; } } catch (e) {}
 })();

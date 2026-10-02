@@ -110,6 +110,62 @@ a{color:inherit}
 .q::before{content:"\201C";color:var(--gold2);margin-right:2px}
 .q::after{content:"\201D";color:var(--gold2);margin-left:2px}
 
+/* founder */
+.persona2{display:grid;grid-template-columns:minmax(0,4.2fr) minmax(0,7.8fr);gap:clamp(24px,4vw,64px);align-items:center}
+.portrait{position:relative;margin:0;aspect-ratio:3/4;max-height:72vh;border:1px solid var(--rule);border-radius:5px;overflow:hidden;box-shadow:0 1px 0 rgba(23,24,28,.05),0 28px 56px -26px rgba(23,24,28,.45);background:var(--paper2)}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.portrait figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;background:linear-gradient(0deg,rgba(23,24,28,.72),rgba(23,24,28,0));color:#fff;font-size:13px;line-height:1.35}
+.portrait figcaption b{display:block;font-family:'Fraunces',serif;font-weight:400;font-size:18px;margin-bottom:2px}
+.is-active .portrait{animation:rise .8s var(--ease) both}
+.mind h2{font-size:clamp(24px,2.5vw,38px);margin-bottom:8px;max-width:22ch}
+.mind .wall{margin-top:10px}
+.q.fr{transform:translateY(6px) scale(.98)}
+.q.fr.on{transform:none}
+
+/* calculator */
+.calc{border-top:1px solid var(--rule);padding-top:8px}
+.calc label{display:grid;grid-template-columns:1fr auto;gap:10px;font-size:14.5px;color:var(--muted);margin:14px 0 4px}
+.calc label output{color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:13px}
+.calc input[type=range]{width:100%;accent-color:var(--gold2);height:20px;cursor:pointer}
+.calc .out{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;border-top:1px solid var(--rule);padding-top:14px}
+.calc .out b{display:block;font-family:'Fraunces',serif;font-weight:300;font-size:clamp(28px,3vw,46px);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.calc .out b.g{color:var(--gold)}
+.calc .out span{display:block;color:var(--muted);font-size:13px;margin-top:6px;line-height:1.35}
+.calc .foot{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);margin-top:14px}
+
+/* hats picker */
+.picker{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,64px);align-items:start;margin-top:clamp(16px,2.5vh,28px)}
+.hats{display:grid;grid-template-columns:repeat(3,1fr);column-gap:clamp(14px,2vw,28px)}
+.hat{border:0;border-top:1px solid var(--rule);border-radius:0;padding:12px 0 12px;cursor:pointer;user-select:none;background:none;text-align:left;font:inherit;color:inherit;width:100%;-webkit-appearance:none;appearance:none}
+.hat h3{font-size:clamp(18px,1.6vw,24px);transition:color .2s;display:flex;align-items:center;gap:10px}
+.hat h3::before{content:"";width:9px;height:9px;border-radius:50%;border:1px solid var(--ink);flex:none;transition:background .2s}
+.hat.on h3{color:var(--gold)}
+.hat.on h3::before{background:var(--gold2);border-color:var(--gold2)}
+.hat p{font-size:13px;color:var(--muted);margin-top:3px}
+.answer{border-top:1px solid var(--rule);padding-top:14px;min-height:200px}
+.answer h3{font-size:clamp(20px,1.9vw,28px);margin-bottom:8px}
+.answer p.hintline{color:var(--muted);font-size:15px}
+.answer ol{list-style:none;counter-reset:a}
+.answer li{counter-increment:a;padding:11px 0;border-bottom:1px solid var(--rule2);font-size:clamp(15px,1.15vw,17px);color:var(--ink2);display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:baseline}
+.answer li::before{content:counter(a);font-family:'Fraunces',serif;font-style:italic;color:var(--gold);font-size:22px}
+.answer li b{font-weight:500;color:var(--ink);display:block}
+
+/* roi */
+.roi{margin-top:10px;border-top:1px solid var(--rule);padding-top:4px}
+.roi .row{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
+.roi label{display:grid;grid-template-columns:1fr auto;gap:8px;font-size:13px;color:var(--muted);margin:6px 0 0}
+.roi label output{color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12.5px}
+.roi input[type=range]{width:100%;accent-color:var(--gold2);height:18px;cursor:pointer}
+.roi .res{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;border-top:1px solid var(--rule2);padding-top:8px}
+.roi .res b{display:block;font-family:'Fraunces',serif;font-weight:300;font-size:clamp(26px,2.6vw,40px);line-height:1;letter-spacing:-.02em}
+.roi .res b.g{color:var(--gold)}
+.roi .res span{display:block;color:var(--muted);font-size:13px;margin-top:5px;line-height:1.3}
+
+/* video */
+.shot.video video,.shot.video img.poster{width:100%;height:100%;object-fit:cover;display:block}
+.shot.video img.poster{display:none}
+.for{margin-bottom:10px;color:var(--gold)}
+
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,3vw,48px) clamp(18px,3vw,56px);margin-top:clamp(20px,3.5vh,40px);border-top:1px solid var(--rule);padding-top:22px}
 .stat b{display:block;font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,4.6vw,72px);line-height:1;color:var(--ink);letter-spacing:-.02em}
@@ -171,13 +227,14 @@ a{color:inherit}
 .rings text.s{font-family:'Instrument Sans',sans-serif;font-size:11px;fill:var(--muted)}
 
 /* economics */
-.econ{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,72px);margin-top:clamp(20px,3vh,36px);border-top:1px solid var(--rule);padding-top:20px}
+.s-econ h2{font-size:clamp(28px,3.2vw,48px)}
+.econ{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,72px);margin-top:clamp(14px,2vh,24px);border-top:1px solid var(--rule);padding-top:14px}
 .econ h3{font-size:clamp(22px,2.2vw,32px);margin-bottom:10px}
-.econ .big{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(34px,3.8vw,60px);line-height:1;letter-spacing:-.02em;margin:6px 0 10px}
+.econ .big{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(28px,3vw,46px);line-height:1;letter-spacing:-.02em;margin:4px 0 8px}
 .econ .big i{font-style:italic;color:var(--gold);font-size:.5em}
-.econ p{color:var(--ink2);font-size:clamp(15px,1.15vw,17.5px);max-width:40ch}
+.econ p{color:var(--ink2);font-size:clamp(14px,1.05vw,16px);max-width:44ch}
 .econ ul{list-style:none;margin-top:10px}
-.econ li{padding:8px 0;border-top:1px solid var(--rule2);font-size:clamp(14px,1.1vw,16.5px);color:var(--ink2)}
+.econ li{padding:6px 0;border-top:1px solid var(--rule2);font-size:clamp(13.5px,1vw,15.5px);color:var(--ink2)}
 
 /* close + sources */
 .close{align-content:end}
@@ -191,7 +248,10 @@ a{color:inherit}
 @media (max-width:980px){
   body{font-size:15px}
   .slide{padding:calc(var(--gy) + 56px) var(--gx) calc(var(--gy) + 48px);overflow-y:auto;align-content:start}
-  .prod,.prod.big,.prod.even,.persona,.econ{grid-template-columns:1fr}
+  .prod,.prod.big,.prod.even,.persona,.persona2,.picker,.econ{grid-template-columns:1fr}
+  .hats{grid-template-columns:1fr 1fr}
+  .calc .out{grid-template-columns:1fr}
+  .portrait{max-height:none}
   .cover .fan{position:relative;right:auto;top:auto;width:100%;max-width:none;transform:none;margin-top:28px}
   .cover.is-active .fan{animation:none}
   .cover,.s-statement,.close{align-content:start}
@@ -222,7 +282,10 @@ a{color:inherit}
   .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;transform:none!important;height:900px;width:1440px;page-break-after:always;break-after:page;overflow:hidden;transition:none}
   .fr{opacity:1!important;transform:none!important}
   .chrome,.progress,.counter,.hint,.notes{display:none!important}
-  .is-active .shot,.shot,.cover .fan{animation:none!important;opacity:1!important}
+  .is-active .shot,.shot,.cover .fan,.portrait{animation:none!important;opacity:1!important}
+  .shot.video video{display:none}
+  .shot.video img.poster{display:block}
+  .calc input,.roi input,.hat h3::before{display:none}
   .cover .fan{transform:translateY(-54%)!important}
   .q{opacity:1!important}
 }
@@ -245,20 +308,21 @@ a{color:inherit}
     <figure class="shot c"><img src="img/trading-strategy-chart.jpg" alt=""></figure>
   </div>
   <div class="mono cap">Jarvis Daily, Pune</div>
+  <div class="mono for" id="for" hidden></div>
   <h1>Your AI department, <em>run by us.</em></h1>
   <p class="lede">An AI automation agency and software company. We audit a business, build the software and the AI employees it needs, and run them every day.</p>
   <div class="meta mono"><span>jarvisdaily.com</span><span>Tranquil Veda Private Limited</span><span>2026</span></div>
 </section>
 
 <!-- 2 The owner -->
-<section class="slide" data-stage="The owner" data-notes="Every owner we meet carries the same list in their head. Read a few of them out. These are the exact words we hear in audits.">
-  <div class="persona">
-    <div class="who">
-      <div class="mono cap">Meet the owner</div>
-      <h2>Forty people. A hundred open threads. One head holding it all.</h2>
-      <p>Running a growing business in India today sounds like this, every single week.</p>
-    </div>
-    <div class="wall" aria-label="What owners tell us">
+<section class="slide" data-stage="The founder" data-notes="Meet Rohan. A composite of the owners we meet: forty people, a firm that still cannot run a day without him. Press the arrow and his week fills the screen. These are the exact words we hear in audits.">
+  <div class="persona2">
+    <figure class="portrait"><img src="img/founder.jpg" alt="A founder at his desk at the end of a long day"><figcaption><b>Rohan, 42</b>Founder of a forty-person design and build firm in Pune. A composite of the owners we meet, not a client.</figcaption></figure>
+    <div class="mind">
+      <div class="mono cap">Meet the founder</div>
+      <h2>Rohan built a forty-person firm. It still cannot run a day without him.</h2>
+      <p class="lede" style="font-size:clamp(14px,1.1vw,16px);margin-top:0">Press the arrow. This is what his week sounds like.</p>
+      <div class="wall" aria-label="What owners tell us">
       <span class="q l fr">The social post did not go out again.</span>
       <span class="q m fr">That proposal should have gone last week.</span>
       <span class="q s fr">Nobody remembers what we told the client in March.</span>
@@ -282,6 +346,7 @@ a{color:inherit}
       <span class="q s fr">I want to use AI to speed everything up. Where do I start?</span>
       <span class="q m fr">I want my company to be intelligent, not just busy.</span>
     </div>
+    </div>
   </div>
 </section>
 
@@ -295,6 +360,31 @@ a{color:inherit}
     <div class="stat fr"><b>1/3</b><p>of an owner's working week goes to admin, invoices and chasing, not to selling or building.</p><small>Xero; Startups Magazine</small></div>
     <div class="stat fr"><b>45<i>%</i></b><p>of consumers now ask an AI for a business recommendation, up from 6 percent a year earlier. Two thirds of businesses appear in none of the answers.</p><small>BrightLocal 2026; AskedAbout</small></div>
     <div class="stat fr"><b>1 in 4</b><p>Indian MSMEs has put AI to work. Most of the rest say they do not know which tools fit them or where to begin.</p><small>Vi Business MSME study, 2026</small></div>
+  </div>
+</section>
+
+<!-- 3b Calculator -->
+<section class="slide" data-stage="The founder" data-notes="Now make it theirs. Move the sliders to the prospect's team size, admin hours and enquiries. The arithmetic uses the research from the previous slide and it is written under the numbers.">
+  <div class="prod even">
+    <div class="copy">
+      <div class="mono cap">Try it with your numbers</div>
+      <h2>Where does your week go?</h2>
+      <p class="lede">Move the sliders. The arithmetic uses the research on the previous slide and is written under each number.</p>
+    </div>
+    <div class="calc" data-noadvance>
+      <label>People on the team <output id="oTeam">12</output></label>
+      <input type="range" id="iTeam" min="2" max="150" value="12">
+      <label>Hours each one spends on admin and chasing, per week <output id="oAdmin">8</output></label>
+      <input type="range" id="iAdmin" min="1" max="25" value="8">
+      <label>Enquiries a month: calls, forms, WhatsApp <output id="oEnq">80</output></label>
+      <input type="range" id="iEnq" min="10" max="1000" step="10" value="80">
+      <div class="out">
+        <div><b id="cHours">96</b><span>hours of admin a week, about <span id="cDays">52</span> person-days a month</span></div>
+        <div><b id="cAfter">38</b><span>enquiries a month arrive after hours or on weekends (47 percent)</span></div>
+        <div><b class="g" id="cLost">23</b><span>of those are likely gone by morning if nobody replies (62 percent of unanswered callers go to a competitor)</span></div>
+      </div>
+      <p class="foot">Estimates from AnswerConnect 2026, 411 Locals and HBR 2011. Your real numbers come out of the audit.</p>
+    </div>
   </div>
 </section>
 
@@ -316,6 +406,33 @@ a{color:inherit}
     <div class="fr"><h3>Marketing</h3><ul><li>Social posts researched, drafted and sent on schedule</li><li>Content written for Google and for AI engines (SEO, AEO, GEO)</li><li>Websites that bring business, built in days</li><li>Reviews asked for and answered</li><li>Monthly numbers, explained</li></ul></div>
     <div class="fr"><h3>Operations</h3><ul><li>A CRM built around your process</li><li>Invoices, reminders and collections on time</li><li>A dashboard of the whole business</li><li>A second brain that remembers every client</li><li>A chief of staff that runs the day</li></ul></div>
     <div class="fr"><h3>Technology</h3><ul><li>Custom software and engines</li><li>Voice agents that call and answer</li><li>WhatsApp assistants for customers and staff</li><li>Trading and planning engines from your own rules</li><li>An Agent OS for the whole company</li></ul></div>
+  </div>
+</section>
+
+<!-- 5b Tap what hurts -->
+<section class="slide" data-stage="What we do" data-notes="Make the prospect tap. Each hat is a job the business does today. Tap the ones that hurt and the right side answers with the first AI employees we would put in, in order. This is the audit in thirty seconds.">
+  <div class="mono cap">Tap what hurts</div>
+  <h2 style="font-size:clamp(30px,3.4vw,52px);max-width:none">Twelve hats every business wears. <em>Tap the ones that hurt.</em></h2>
+  <div class="picker" data-noadvance>
+    <div class="hats" id="hats">
+      <button class="hat" data-k="inbox"><h3>Inbox and calendar</h3><p>Sorting mail, booking meetings</p></button>
+      <button class="hat" data-k="support"><h3>Customer support</h3><p>Answering the same questions all day</p></button>
+      <button class="hat" data-k="outbound"><h3>Outbound sales</h3><p>Finding and chasing new leads</p></button>
+      <button class="hat" data-k="calls"><h3>Inbound calls</h3><p>Picking up, qualifying, booking</p></button>
+      <button class="hat" data-k="social"><h3>Social media</h3><p>Posts that should have gone out</p></button>
+      <button class="hat" data-k="search"><h3>Content and search</h3><p>Being found on Google and by AI</p></button>
+      <button class="hat" data-k="email"><h3>Email marketing</h3><p>Newsletters and follow-up sequences</p></button>
+      <button class="hat" data-k="reviews"><h3>Reviews and reputation</h3><p>Asking, replying, repairing</p></button>
+      <button class="hat" data-k="reports"><h3>Reports and data</h3><p>The Monday numbers</p></button>
+      <button class="hat" data-k="books"><h3>Books and GST</h3><p>Invoices, reminders, reconciliation</p></button>
+      <button class="hat" data-k="hiring"><h3>Hiring</h3><p>Screening and scheduling</p></button>
+      <button class="hat" data-k="ops"><h3>Operations</h3><p>Chasing what is late</p></button>
+    </div>
+    <div class="answer" id="answer">
+      <h3>Your first AI employees</h3>
+      <p class="hintline">Tap any hat on the left. We will show the first three employees we would put in, in order.</p>
+      <ol id="answerList"></ol>
+    </div>
   </div>
 </section>
 
@@ -520,7 +637,7 @@ a{color:inherit}
 </section>
 
 <!-- 17 Economics -->
-<section class="slide s-statement" data-stage="What it costs" data-notes="What it costs and what it replaces. A build fee, then a monthly retainer between fifteen and forty thousand rupees for AI employees that work around the clock. Compare that with one junior hire, plus the manager's time. Third-party AI and hosting stay on the client's own accounts at cost.">
+<section class="slide s-statement s-econ" data-stage="What it costs" data-notes="What it costs and what it replaces. A build fee, then a monthly retainer between fifteen and forty thousand rupees for AI employees that work around the clock. Compare that with one junior hire, plus the manager's time. Third-party AI and hosting stay on the client's own accounts at cost.">
   <h2>What it costs, <em>and what it replaces.</em></h2>
   <div class="econ">
     <div class="fr">
@@ -532,6 +649,18 @@ a{color:inherit}
         <li>Grows with the business without a new hire for every new task</li>
         <li>Third-party AI and hosting on your own accounts, at cost, no markup</li>
       </ul>
+      <div class="roi" data-noadvance>
+        <div class="row">
+          <div><label>Hours saved a week <output id="oH">20</output></label><input type="range" id="rH" min="2" max="120" value="20"></div>
+          <div><label>Cost of a staff hour (Rs) <output id="oC">350</output></label><input type="range" id="rC" min="100" max="2000" step="50" value="350"></div>
+          <div><label>Extra clients a month <output id="oN">1</output></label><input type="range" id="rN" min="0" max="20" value="1"></div>
+          <div><label>Value of one client (Rs) <output id="oV">50,000</output></label><input type="range" id="rV" min="5000" max="500000" step="5000" value="50000"></div>
+        </div>
+        <div class="res">
+          <div><b class="g" id="rVal">Rs 80,300</b><span>of value a month at these numbers</span></div>
+          <div><b id="rPay">10 days</b><span>for a Rs 25,000 retainer to pay for itself</span></div>
+        </div>
+      </div>
     </div>
     <div class="fr">
       <h3>The alternative</h3>
@@ -544,7 +673,7 @@ a{color:inherit}
       </ul>
     </div>
   </div>
-  <p class="lede fr" style="margin-top:22px">If it saves one person's week or wins one extra client a month, it has paid for itself.</p>
+  <p class="lede fr" style="margin-top:12px;font-size:clamp(15px,1.15vw,18px)">If it saves one person's week or wins one extra client a month, it has paid for itself.</p>
 </section>
 
 <!-- 18 Why us -->
@@ -559,7 +688,7 @@ a{color:inherit}
         <li class="fr"><b>A human approves anything that goes out</b><span>drafts, calls, posts and payments all pass a person first</span></li>
       </ul>
     </div>
-    <figure class="shot"><img src="img/jarvis-city-dusk.jpg" alt="Jarvis City, our own company drawn as a town" style="object-position:center"><figcaption>Jarvis City, our own Agent OS, live</figcaption></figure>
+    <figure class="shot video"><video id="cityvid" muted loop playsinline preload="metadata" poster="img/jarvis-city-poster.jpg"><source src="img/jarvis-city.mp4" type="video/mp4"></video><img class="poster" src="img/jarvis-city-poster.jpg" alt="Jarvis City, our own company drawn as a town"><figcaption>Jarvis City, our own Agent OS, recorded live</figcaption></figure>
   </div>
 </section>
 
@@ -576,12 +705,17 @@ a{color:inherit}
 
 <!-- 20 Close -->
 <section class="slide close" data-stage="" data-notes="Close. Your business, running while you sleep. Shruti is the contact for anything that follows.">
-  <h1>Your business, <em>running while you sleep.</em></h1>
+  <div class="prod even" style="align-items:end">
+    <div>
+  <h1 style="font-size:clamp(40px,5.6vw,84px)">Your business, <em>running while you sleep.</em></h1>
   <p class="lede" style="margin-top:18px">Jarvis Daily. Your AI department, run by us.</p>
   <div class="contact">
     <div><span class="mono">Contact</span>Shruti Pethkar</div>
     <div><span class="mono">Email</span>shruti@jarvisdaily.com</div>
     <div><span class="mono">WhatsApp</span>+91 96737 58777</div>
+  </div>
+    </div>
+    <figure class="portrait" style="max-height:66vh"><img src="img/founder-dusk.jpg" alt="A founder at her office window at dusk"></figure>
   </div>
 </section>
 
@@ -617,7 +751,9 @@ var cur = -1, fragIdx = 0;
 var bar = document.getElementById('bar'), counter = document.getElementById('counter'), stage = document.getElementById('stage'), hint = document.getElementById('hint'), notes = document.getElementById('notes');
 var hooks = {};
 function frags(i){ return Array.prototype.slice.call(slides[i].querySelectorAll('.fr')); }
-function showFrags(i, n){ frags(i).forEach(function(el,k){ el.classList.toggle('on', k < n); }); }
+function showFrags(i, n){ frags(i).forEach(function(el,k){ var was = el.classList.contains('on'); el.classList.toggle('on', k < n); if (!was && k < n && el.classList.contains('msg')) typeMsg(el); if (!(k < n) && el.classList.contains('msg')) resetMsg(el); }); }
+function typeMsg(el){ var p = el.querySelector('p'); if (!p) return; if (!p.dataset.t) p.dataset.t = p.textContent; if (RM){ p.textContent = p.dataset.t; return; } var full = p.dataset.t, k = 0; p.textContent = ''; clearInterval(p._t); p._t = setInterval(function(){ k += 2; p.textContent = full.slice(0, k); if (k >= full.length){ p.textContent = full; clearInterval(p._t); } }, 14); }
+function resetMsg(el){ var p = el.querySelector('p'); if (p && p.dataset.t){ clearInterval(p._t); p.textContent = p.dataset.t; } }
 function preload(i){ for (var k = i + 1; k <= i + 2 && k < slides.length; k++){ slides[k].querySelectorAll('img').forEach(function(im){ var p = new Image(); p.src = im.getAttribute('src'); }); } }
 function go(i, dir, allFrags){
   if (i < 0 || i >= slides.length || i === cur) return;
@@ -634,8 +770,8 @@ function go(i, dir, allFrags){
   if (hooks[i] && hooks[i].enter) hooks[i].enter();
   preload(i);
 }
-function next(){ var fs = frags(cur); if (fragIdx < fs.length){ fragIdx = Math.min(fs.length, fragIdx + (slides[cur].querySelector('.wall') ? 4 : 1)); showFrags(cur, fragIdx); return; } go(cur + 1, 1, false); }
-function prev(){ if (fragIdx > 0){ fragIdx = Math.max(0, fragIdx - (slides[cur].querySelector('.wall') ? 4 : 1)); showFrags(cur, fragIdx); return; } go(cur - 1, -1, true); }
+function next(){ var fs = frags(cur); if (fragIdx < fs.length){ fragIdx = Math.min(fs.length, fragIdx + (slides[cur].querySelector('.wall') ? 5 : 1)); showFrags(cur, fragIdx); return; } go(cur + 1, 1, false); }
+function prev(){ if (fragIdx > 0){ fragIdx = Math.max(0, fragIdx - (slides[cur].querySelector('.wall') ? 5 : 1)); showFrags(cur, fragIdx); return; } go(cur - 1, -1, true); }
 function renderNotes(){ notes.innerHTML = '<b>' + (cur + 1) + '</b>' + (slides[cur].getAttribute('data-notes') || ''); }
 document.addEventListener('keydown', function(e){
   if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName) && e.key !== 'Escape') return;
@@ -653,6 +789,41 @@ document.getElementById('deck').addEventListener('click', function(e){ if (e.tar
 var tx = null, ty = null;
 document.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive:true});
 document.addEventListener('touchend', function(e){ if (tx === null) return; var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4){ if (dx < 0) next(); else prev(); } tx = ty = null; }, {passive:true});
+
+/* calculator */
+(function(){
+  var t = document.getElementById('iTeam'); if (!t) return;
+  var a = document.getElementById('iAdmin'), e = document.getElementById('iEnq');
+  function f(n){ return Math.round(n).toLocaleString('en-IN'); }
+  function calc(){ var T = +t.value, A = +a.value, E = +e.value; document.getElementById('oTeam').textContent = T; document.getElementById('oAdmin').textContent = A; document.getElementById('oEnq').textContent = f(E);
+    var hours = T * A; document.getElementById('cHours').textContent = f(hours); document.getElementById('cDays').textContent = f(hours * 4.33 / 8);
+    var after = E * 0.47; document.getElementById('cAfter').textContent = f(after); document.getElementById('cLost').textContent = f(after * 0.62); }
+  [t, a, e].forEach(function(i){ i.addEventListener('input', calc); }); calc();
+})();
+/* hats picker */
+(function(){
+  var hats = document.getElementById('hats'); if (!hats) return;
+  var MAP = {inbox:['An inbox and calendar assistant','sorts mail, drafts replies, books meetings, keeps the follow-up list'], support:['A support agent on WhatsApp and web','answers in your language day and night, hands over when stuck'], outbound:['An outbound sales agent','finds leads, writes the first message, follows up on time'], calls:['A voice agent that picks up and calls back','qualifies, books the visit, logs the call within a minute'], social:['A content agent','researches, drafts and schedules posts for your approval'], search:['A search and AI-visibility agent','writes pages and answers so Google and ChatGPT find you'], email:['An email marketing agent','segments, writes, sends, learns from replies'], reviews:['A reputation agent','asks happy customers, replies to the rest'], reports:['A reporting agent','the Monday numbers, ready before Monday'], books:['A books and GST agent','reads statements, matches invoices, chases what is due'], hiring:['A hiring agent','screens applications, schedules, keeps notes'], ops:['A chief of staff','chases what is late, prepares what is next, runs the day']};
+  var ORDER = ['calls','support','outbound','ops','books','social','search','inbox','email','reviews','reports','hiring'];
+  var sel = {};
+  function render(){ var keys = ORDER.filter(function(k){ return sel[k]; }).slice(0, 3); var ol = document.getElementById('answerList'); var hint = document.querySelector('#answer .hintline'); ol.innerHTML = keys.map(function(k){ return '<li><div><b>' + MAP[k][0] + '</b>' + MAP[k][1] + '</div></li>'; }).join(''); hint.textContent = keys.length ? (Object.keys(sel).filter(function(k){ return sel[k]; }).length > 3 ? 'The first three, in the order we would start. The rest follow once these run.' : 'In the order we would start.') : 'Tap any hat on the left. We will show the first three employees we would put in, in order.'; }
+  hats.addEventListener('click', function(ev){ var b = ev.target.closest('.hat'); if (!b) return; var k = b.getAttribute('data-k'); sel[k] = !sel[k]; b.classList.toggle('on', sel[k]); render(); });
+})();
+/* roi */
+(function(){
+  var h = document.getElementById('rH'); if (!h) return;
+  var c = document.getElementById('rC'), n = document.getElementById('rN'), v = document.getElementById('rV');
+  function inr(x){ return 'Rs ' + Math.round(x).toLocaleString('en-IN'); }
+  function calc(){ document.getElementById('oH').textContent = h.value; document.getElementById('oC').textContent = (+c.value).toLocaleString('en-IN'); document.getElementById('oN').textContent = n.value; document.getElementById('oV').textContent = (+v.value).toLocaleString('en-IN');
+    var val = (+h.value) * 4.33 * (+c.value) + (+n.value) * (+v.value); document.getElementById('rVal').textContent = inr(val);
+    var days = val > 0 ? Math.max(1, Math.round(25000 / val * 30)) : 0; document.getElementById('rPay').textContent = val > 0 ? (days > 60 ? 'over two months' : days + (days === 1 ? ' day' : ' days')) : 'no value entered'; }
+  [h, c, n, v].forEach(function(i){ i.addEventListener('input', calc); }); calc();
+})();
+/* video + personalised cover */
+(function(){
+  var vid = document.getElementById('cityvid'); if (vid){ var idx = slides.indexOf(vid.closest('.slide')); hooks[idx] = { enter: function(){ if (!RM){ var pr = vid.play(); if (pr && pr.catch) pr.catch(function(){}); } }, leave: function(){ vid.pause(); } }; }
+  try { var who = new URLSearchParams(location.search).get('for'); if (who && who.length < 80){ var el = document.getElementById('for'); el.textContent = 'Prepared for ' + who; el.hidden = false; } } catch (e) {}
+})();
 
 /* agent OS diagram */
 (function(){

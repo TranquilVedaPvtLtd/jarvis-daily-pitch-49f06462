@@ -110,7 +110,35 @@ a{color:inherit}
 .q::before{content:"\201C";color:var(--gold2);margin-right:2px}
 .q::after{content:"\201D";color:var(--gold2);margin-left:2px}
 
-/* founder */
+/* founder (coded) */
+.founder{position:relative;height:min(66vh,640px);margin-top:clamp(10px,2vh,20px)}
+.founder svg.fig{position:absolute;left:0;bottom:0;height:78%;width:auto;overflow:visible}
+.founder svg.fig *{vector-effect:non-scaling-stroke}
+.founder .fig path,.founder .fig circle,.founder .fig line,.founder .fig rect{fill:none;stroke:var(--ink);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.founder .fig .trail{fill:var(--paper);stroke:var(--ink)}
+.founder .fig .spark{fill:var(--gold2);stroke:none}
+.bubble{position:absolute;min-width:11ch;transform:translate(-50%,0) scale(.92);background:var(--paper);border:1px solid var(--ink);border-radius:26px;padding:10px 16px;font-family:'Fraunces',serif;font-style:italic;font-weight:300;line-height:1.15;color:var(--ink);box-shadow:0 10px 24px -14px rgba(23,24,28,.35);white-space:normal;text-align:center}
+.bubble.l{font-size:clamp(17px,1.5vw,22px);max-width:24ch}
+.bubble.m{font-size:clamp(14px,1.2vw,17px);max-width:22ch}
+.bubble.s{font-size:clamp(12.5px,1.02vw,14px);max-width:20ch;color:var(--ink2)}
+.bubble.g{border-color:var(--gold2);color:var(--gold)}
+.bubble.fr{opacity:0;transition:opacity .45s var(--ease),transform .55s var(--ease)}
+.bubble.fr.on{opacity:1;transform:translate(-50%,0) scale(1);animation:bob 5s ease-in-out infinite alternate}
+.bubble.fr.on:nth-child(3n){animation-duration:6.5s}
+.bubble.fr.on:nth-child(3n+1){animation-delay:-2s}
+@keyframes bob{from{margin-top:0}to{margin-top:-9px}}
+.bubble.done{font-family:'Instrument Sans',sans-serif;font-style:normal;font-size:clamp(13px,1.05vw,15px);border-color:var(--gold2);color:var(--ink);padding:9px 14px;border-radius:14px}
+.bubble.done b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--gold);font-weight:500;margin-right:8px}
+.founder .cap2{position:absolute;left:0;bottom:-6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.wall{display:none}
+
+/* graph */
+.graphwrap{position:relative;height:min(58vh,600px);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:linear-gradient(180deg,rgba(235,228,214,0),rgba(235,228,214,.6));margin-top:clamp(12px,2vh,22px)}
+#graph{width:100%;height:100%;cursor:grab;touch-action:none}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle}
+
+/* founder (old) */
 .persona2{display:grid;grid-template-columns:minmax(0,4.2fr) minmax(0,7.8fr);gap:clamp(24px,4vw,64px);align-items:center}
 .portrait{position:relative;margin:0;aspect-ratio:3/4;max-height:72vh;border:1px solid var(--rule);border-radius:5px;overflow:hidden;box-shadow:0 1px 0 rgba(23,24,28,.05),0 28px 56px -26px rgba(23,24,28,.45);background:var(--paper2)}
 .portrait img{width:100%;height:100%;object-fit:cover;display:block}
@@ -249,6 +277,11 @@ a{color:inherit}
   body{font-size:15px}
   .slide{padding:calc(var(--gy) + 56px) var(--gx) calc(var(--gy) + 48px);overflow-y:auto;align-content:start}
   .prod,.prod.big,.prod.even,.persona,.persona2,.picker,.econ{grid-template-columns:1fr}
+  .founder{height:auto;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+  .founder svg.fig{position:relative;height:150px;width:auto;flex:0 0 100%;display:block;margin:0 auto 6px}
+  .bubble{position:relative;left:auto!important;top:auto!important;transform:none!important;margin:0;max-width:none;text-align:left;display:inline-block;animation:none!important}
+  .bubble.l{font-size:15px}.bubble.m{font-size:13.5px}.bubble.s{font-size:12.5px}
+  .founder .cap2{position:static;flex:0 0 100%;margin-top:8px}
   .hats{grid-template-columns:1fr 1fr}
   .calc .out{grid-template-columns:1fr}
   .portrait{max-height:none}
@@ -283,6 +316,8 @@ a{color:inherit}
   .fr{opacity:1!important;transform:none!important}
   .chrome,.progress,.counter,.hint,.notes{display:none!important}
   .is-active .shot,.shot,.cover .fan,.portrait{animation:none!important;opacity:1!important}
+  .bubble.fr{opacity:1!important;transform:translate(-50%,0)!important;animation:none!important}
+  .graphwrap{break-inside:avoid}
   .shot.video video{display:none}
   .shot.video img.poster{display:block}
   .calc input,.roi input,.hat h3::before{display:none}
@@ -315,38 +350,29 @@ a{color:inherit}
 </section>
 
 <!-- 2 The owner -->
-<section class="slide" data-stage="The founder" data-notes="Meet Rohan. A composite of the owners we meet: forty people, a firm that still cannot run a day without him. Press the arrow and his week fills the screen. These are the exact words we hear in audits.">
-  <div class="persona2">
-    <figure class="portrait"><img src="img/founder.jpg" alt="A founder at his desk at the end of a long day"><figcaption><b>Rohan, 42</b>Founder of a forty-person design and build firm in Pune. A composite of the owners we meet, not a client.</figcaption></figure>
-    <div class="mind">
-      <div class="mono cap">Meet the founder</div>
-      <h2>Rohan built a forty-person firm. It still cannot run a day without him.</h2>
-      <p class="lede" style="font-size:clamp(14px,1.1vw,16px);margin-top:0">Press the arrow. This is what his week sounds like.</p>
-      <div class="wall" aria-label="What owners tell us">
-      <span class="q l fr">The social post did not go out again.</span>
-      <span class="q m fr">That proposal should have gone last week.</span>
-      <span class="q s fr">Nobody remembers what we told the client in March.</span>
-      <span class="q m g fr">Which AI tool is right for us? No idea.</span>
-      <span class="q l fr">Leads come in at eleven at night and wait till morning.</span>
-      <span class="q s fr">Follow-ups fall through the cracks.</span>
-      <span class="q m fr">The website looks fine. It brings no business.</span>
-      <span class="q s fr">Nobody answers the phone after six.</span>
-      <span class="q l g fr">I want more leads, more meetings, more conversions.</span>
-      <span class="q m fr">I am the only one who knows how everything works.</span>
-      <span class="q s fr">Operations run on WhatsApp and memory.</span>
-      <span class="q m fr">I cannot take a holiday without the business stopping.</span>
-      <span class="q l fr">How do I grow without hiring five more people?</span>
-      <span class="q s fr">Invoices go out late. Money comes in later.</span>
-      <span class="q m g fr">I want employees who work twenty-four seven.</span>
-      <span class="q s fr">Costs keep climbing. Margins do not.</span>
-      <span class="q m fr">I want to be found when people ask ChatGPT, not only Google.</span>
-      <span class="q s fr">I want to see every part of the business in one place.</span>
-      <span class="q m fr">I want a tool built for us, not another subscription.</span>
-      <span class="q l g fr">I want to be one step ahead, not catching up.</span>
-      <span class="q s fr">I want to use AI to speed everything up. Where do I start?</span>
-      <span class="q m fr">I want my company to be intelligent, not just busy.</span>
-    </div>
-    </div>
+<section class="slide" data-stage="The founder" data-notes="Every founder we meet carries the same thoughts. Let the bubbles fill the screen, then read three of them out. These are the exact words we hear in audits. No names, no faces: this is every owner.">
+  <div class="mono cap">Inside a founder's head, any given Tuesday</div>
+  <h2 style="font-size:clamp(28px,3.2vw,48px);max-width:none">A forty-person firm. <em>It still cannot run a day without the founder.</em></h2>
+  <div class="founder" id="founder" aria-label="A founder at a desk, surrounded by the thoughts owners tell us">
+    <svg class="fig" viewBox="0 0 520 420" id="figA"></svg>
+    <div class="bubble l fr" style="left:36%;top:2%">How do I get more leads, more meetings, more conversions?</div>
+    <div class="bubble s fr" style="left:62%;top:0%">The social post did not go out again.</div>
+    <div class="bubble m fr" style="left:84%;top:4%">That proposal should have gone last week.</div>
+    <div class="bubble m fr" style="left:40%;top:22%">Leads come in at eleven at night and wait till morning.</div>
+    <div class="bubble s fr" style="left:64%;top:19%">Nobody remembers what we told the client in March.</div>
+    <div class="bubble l g fr" style="left:88%;top:22%">Which AI tool is right for us?</div>
+    <div class="bubble s fr" style="left:35%;top:40%">Follow-ups fall through the cracks.</div>
+    <div class="bubble m fr" style="left:58%;top:38%">The website looks fine. It brings no business.</div>
+    <div class="bubble s fr" style="left:80%;top:42%">Nobody answers the phone after six.</div>
+    <div class="bubble l fr" style="left:46%;top:56%">How do I grow without hiring five more people?</div>
+    <div class="bubble s fr" style="left:66%;top:60%">Operations run on WhatsApp and memory.</div>
+    <div class="bubble m g fr" style="left:86%;top:58%">I want employees who work twenty-four seven.</div>
+    <div class="bubble s fr" style="left:38%;top:74%">Invoices go out late. Money comes in later.</div>
+    <div class="bubble m fr" style="left:60%;top:76%">I cannot take a holiday without the business stopping.</div>
+    <div class="bubble m fr" style="left:84%;top:80%">I want to be found when people ask ChatGPT, not only Google.</div>
+    <div class="bubble s fr" style="left:44%;top:92%">Costs keep climbing. Margins do not.</div>
+    <div class="bubble l g fr" style="left:64%;top:93%">I want to be one step ahead, not catching up.</div>
+    <div class="cap2">Every bubble is a sentence we have heard in an audit</div>
   </div>
 </section>
 
@@ -549,19 +575,11 @@ a{color:inherit}
 </section>
 
 <!-- 12 Second brain -->
-<section class="slide" data-stage="The second brain" data-notes="The second brain is layered memory. General knowledge at the outside, then your industry, then your company's own way of working, then each client, then each project. Every agent reads it before acting and writes to it after. That is how the company stops depending on one person's memory.">
-  <div class="prod even">
-    <div class="copy">
-      <div class="mono cap">The second brain</div>
-      <h2>Your company stops depending on one person's memory.</h2>
-      <ul class="lines">
-        <li class="fr"><b>Built in layers from your own data</b><span>general knowledge, your industry, your company, each client, each project</span></li>
-        <li class="fr"><b>Every agent reads it before acting and writes to it after</b><span>a booked meeting, a sent proposal, a paid invoice, a lesson learned</span></li>
-        <li class="fr"><b>Searchable by anyone on the team</b><span>what did we tell this client in March? It is there.</span></li>
-      </ul>
-    </div>
-    <div class="rings" aria-label="Layers of memory"><svg viewBox="0 0 520 520" id="rings"></svg></div>
-  </div>
+<section class="slide" data-stage="The second brain" data-notes="The second brain. Every client, project, person, meeting, proposal, invoice and lesson is a node, layered from general knowledge down to this project. Every agent reads it before acting and writes to it after. Drag a node. Hover to see what it connects to. This is how the company stops depending on one person's memory.">
+  <div class="mono cap">The second brain</div>
+  <h2 style="font-size:clamp(28px,3.2vw,48px);max-width:none">Your company stops depending on one person's memory. <span class="muted" style="font-style:italic;font-weight:300">Every client, project, person, meeting, proposal and invoice is a node. Drag one.</span></h2>
+  <div class="graphwrap" data-noadvance><canvas id="graph"></canvas></div>
+  <div class="legend mono" id="legend"></div>
 </section>
 
 <!-- 13 Case: trading desk -->
@@ -704,18 +722,26 @@ a{color:inherit}
 </section>
 
 <!-- 20 Close -->
-<section class="slide close" data-stage="" data-notes="Close. Your business, running while you sleep. Shruti is the contact for anything that follows.">
-  <div class="prod even" style="align-items:end">
+<section class="slide close" data-stage="" data-notes="Close. The same founder, asleep. The work keeps moving: a lead answered, a meeting booked, an invoice sent, the Monday numbers ready, a draft waiting for a human yes. Shruti is the contact for anything that follows.">
+  <div class="prod even" style="align-items:center">
     <div>
-  <h1 style="font-size:clamp(40px,5.6vw,84px)">Your business, <em>running while you sleep.</em></h1>
-  <p class="lede" style="margin-top:18px">Jarvis Daily. Your AI department, run by us.</p>
-  <div class="contact">
-    <div><span class="mono">Contact</span>Shruti Pethkar</div>
-    <div><span class="mono">Email</span>shruti@jarvisdaily.com</div>
-    <div><span class="mono">WhatsApp</span>+91 96737 58777</div>
-  </div>
+      <h1 style="font-size:clamp(40px,5.4vw,80px)">Your business, <em>running while you sleep.</em></h1>
+      <p class="lede" style="margin-top:18px">Jarvis Daily. Your AI department, run by us.</p>
+      <div class="contact">
+        <div><span class="mono">Contact</span>Shruti Pethkar</div>
+        <div><span class="mono">Email</span>shruti@jarvisdaily.com</div>
+        <div><span class="mono">WhatsApp</span>+91 96737 58777</div>
+      </div>
     </div>
-    <figure class="portrait" style="max-height:66vh"><img src="img/founder-dusk.jpg" alt="A founder at her office window at dusk"></figure>
+    <div class="founder" id="sleeper" style="height:min(60vh,560px)">
+      <svg class="fig" viewBox="0 0 520 420" id="figB"></svg>
+      <div class="bubble done fr" style="left:52%;top:4%"><b>23:40</b>Lead answered on WhatsApp, site visit booked</div>
+      <div class="bubble done fr" style="left:78%;top:20%"><b>02:10</b>Invoice sent, reminder scheduled</div>
+      <div class="bubble done fr" style="left:48%;top:34%"><b>05:30</b>Three posts drafted for approval</div>
+      <div class="bubble done fr" style="left:80%;top:50%"><b>06:45</b>Monday numbers ready</div>
+      <div class="bubble done fr" style="left:56%;top:64%"><b>07:20</b>Proposal draft waiting for your yes</div>
+      <div class="bubble done fr" style="left:82%;top:80%"><b>08:00</b>Good morning. Six things need you today.</div>
+    </div>
   </div>
 </section>
 
@@ -853,7 +879,103 @@ document.addEventListener('touchend', function(e){ if (tx === null) return; var 
   var k = el('text', {x: cx, y: 434, 'text-anchor': 'middle', 'class': 's'}); k.textContent = 'Gold: agents writing what they did. Blue: people deciding at the gates.'; svg.appendChild(k);
 })();
 
-/* memory rings */
+/* coded founder figure */
+function drawFounder(svg, asleep){
+  if (!svg) return; var NS = 'http://www.w3.org/2000/svg';
+  function el(n, a){ var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; }
+  // desk and laptop
+  el('line', {x1: 20, y1: 372, x2: 500, y2: 372});
+  el('line', {x1: 60, y1: 372, x2: 54, y2: 418}); el('line', {x1: 460, y1: 372, x2: 466, y2: 418});
+  el('path', {d: 'M300 372 L312 318 L422 318 L410 372 Z'}); el('line', {x1: 296, y1: 372, x2: 414, y2: 372});
+  el('circle', {cx: 366, cy: 345, r: 3, 'class': 'spark'});
+  // chair
+  el('path', {d: 'M118 372 C112 330 112 290 126 262 L190 262'}); el('line', {x1: 150, y1: 372, x2: 150, y2: 418});
+  // body
+  el('path', {d: 'M168 372 C168 330 182 300 214 288 L262 288 C294 300 306 330 306 372'});
+  // head
+  var head = el('circle', {cx: 238, cy: 212, r: 44});
+  el('path', {d: 'M226 258 L228 288 M250 258 L248 288'});
+  if (asleep){
+    el('path', {d: 'M222 214 q6 4 12 0 M244 214 q6 4 12 0'});
+    el('path', {d: 'M232 232 q6 3 12 0'});
+    // arms folded on desk
+    el('path', {d: 'M214 290 C196 318 196 348 232 352 L300 352'});
+    el('path', {d: 'M262 290 C280 318 276 346 250 352'});
+    // zzz
+    [[300,150,'z'],[318,124,'z'],[340,96,'z']].forEach(function(z, i){ var t = el('text', {x: z[0], y: z[1], 'font-family': 'Fraunces, serif', 'font-style': 'italic', 'font-size': 14 + i * 6, fill: '#8E6E10', stroke: 'none'}); t.textContent = z[2]; });
+  } else {
+    el('path', {d: 'M222 206 q6 -4 12 0 M244 206 q6 -4 12 0'});
+    el('path', {d: 'M232 230 q6 -2 12 0'});
+    // arms: one on the desk, one holding a phone near the head
+    el('path', {d: 'M214 290 C196 318 200 350 240 356 L296 356'});
+    el('path', {d: 'M262 290 C292 300 300 262 290 240'});
+    el('rect', {x: 282, y: 214, width: 16, height: 28, rx: 3});
+    // thought trail toward the bubbles
+    el('circle', {cx: 286, cy: 164, r: 4, 'class': 'trail'}); el('circle', {cx: 304, cy: 142, r: 7, 'class': 'trail'}); el('circle', {cx: 328, cy: 114, r: 11, 'class': 'trail'});
+  }
+}
+drawFounder(document.getElementById('figA'), false);
+drawFounder(document.getElementById('figB'), true);
+(function(){
+  ['founder', 'sleeper'].forEach(function(id){
+    var box = document.getElementById(id); if (!box) return; var idx = slides.indexOf(box.closest('.slide')); var t = 0;
+    hooks[idx] = { enter: function(){ clearInterval(t); if (RM){ return; } t = setInterval(function(){ var fs = frags(cur); if (cur !== idx || fragIdx >= fs.length){ clearInterval(t); return; } fragIdx++; showFrags(cur, fragIdx); }, id === 'founder' ? 520 : 900); }, leave: function(){ clearInterval(t); } };
+  });
+})();
+
+/* second brain graph */
+(function(){
+  var cv = document.getElementById('graph'); if (!cv) return;
+  var TYPES = {client:'#9C7A14', project:'#5B6A96', person:'#17181C', meeting:'#4F8A5E', proposal:'#C9A227', invoice:'#B0574F', lesson:'#7A5FA3', content:'#2E8A8A'};
+  var LABEL = {client:'Client', project:'Project', person:'Person', meeting:'Meeting', proposal:'Proposal', invoice:'Invoice', lesson:'Lesson', content:'Content'};
+  var legend = document.getElementById('legend'); Object.keys(TYPES).forEach(function(k){ var sp = document.createElement('span'); sp.innerHTML = '<i style="background:' + TYPES[k] + '"></i>' + LABEL[k]; legend.appendChild(sp); });
+  var N = [], E = [];
+  function node(id, type, label, big){ N.push({id:id, t:type, l:label, r: big ? 9 : 5.5, x:0, y:0, vx:0, vy:0}); }
+  function edge(a, b){ E.push([a, b]); }
+  node('c1','client','A design studio',1); node('c2','client','A trading desk',1); node('c3','client','A distribution firm',1); node('c4','client','An architecture practice',1);
+  node('p1','project','Brand refresh'); node('p2','project','Website rebuild'); node('p3','project','Strategy v4'); node('p4','project','Client book CRM'); node('p5','project','Proposal engine'); node('p6','project','Planning engine');
+  node('h1','person','Design lead'); node('h2','person','Founder'); node('h3','person','Operations head'); node('h4','person','Principal architect'); node('h5','person','Sales lead'); node('h6','person','Analyst');
+  node('m1','meeting','Kickoff'); node('m2','meeting','Weekly review'); node('m3','meeting','Rules walkthrough'); node('m4','meeting','Field interviews'); node('m5','meeting','Demo day');
+  node('q1','proposal','Agent OS, year one'); node('q2','proposal','Platform build'); node('q3','proposal','CRM phase two'); node('q4','proposal','Engine rebuild');
+  node('i1','invoice','Invoice 014'); node('i2','invoice','Invoice 021'); node('i3','invoice','Invoice 009'); node('i4','invoice','Invoice 017');
+  node('l1','lesson','Clients prefer calendar dates'); node('l2','lesson','Paper trade before live'); node('l3','lesson','Interview every employee'); node('l4','lesson','Keep the fee section short');
+  node('t1','content','Case study draft'); node('t2','content','LinkedIn article'); node('t3','content','Onboarding video');
+  edge('c1','p1'); edge('c1','p2'); edge('c1','h1'); edge('c1','h2'); edge('c1','m1'); edge('c1','m4'); edge('c1','q1'); edge('q1','i1'); edge('p1','h1'); edge('p1','m2'); edge('p2','t1'); edge('m4','l3'); edge('p1','t2'); edge('h2','m1');
+  edge('c2','p3'); edge('c2','h3'); edge('c2','m3'); edge('c2','q2'); edge('q2','i2'); edge('p3','l2'); edge('p3','h6'); edge('m3','h3'); edge('p3','m5');
+  edge('c3','p4'); edge('c3','p6'); edge('c3','h5'); edge('c3','q3'); edge('q3','i3'); edge('p4','h5'); edge('p6','h6'); edge('p6','q4'); edge('q4','l1'); edge('p4','t3');
+  edge('c4','p5'); edge('c4','h4'); edge('c4','m2'); edge('p5','l4'); edge('p5','q4'); edge('q4','i4'); edge('h4','m5');
+  edge('l1','l4'); edge('l2','l3'); edge('m5','t1');
+  var byId = {}; N.forEach(function(n){ byId[n.id] = n; });
+  var S = null, raf = 0, hover = null, drag = null;
+  function fit(c){ var r = c.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2); c.width = Math.max(1, r.width * d); c.height = Math.max(1, r.height * d); var x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return {ctx:x, w:r.width, h:r.height}; }
+  function init(){ S = fit(cv); N.forEach(function(n, i){ var a = i * 2.39996, rr = 40 + 11 * Math.sqrt(i); n.x = S.w / 2 + Math.cos(a) * rr; n.y = S.h / 2 + Math.sin(a) * rr; n.vx = n.vy = 0; }); }
+  function step(){
+    var i, j, a, b, dx, dy, d, f;
+    for (i = 0; i < N.length; i++) for (j = i + 1; j < N.length; j++){ a = N[i]; b = N[j]; dx = b.x - a.x; dy = b.y - a.y; d = Math.sqrt(dx * dx + dy * dy) || 1; f = 3400 / (d * d); if (d < 320){ dx = dx / d * f; dy = dy / d * f; a.vx -= dx; a.vy -= dy; b.vx += dx; b.vy += dy; } }
+    for (i = 0; i < E.length; i++){ a = byId[E[i][0]]; b = byId[E[i][1]]; dx = b.x - a.x; dy = b.y - a.y; d = Math.sqrt(dx * dx + dy * dy) || 1; f = (d - 92) * 0.012; dx = dx / d * f; dy = dy / d * f; a.vx += dx; a.vy += dy; b.vx -= dx; b.vy -= dy; }
+    for (i = 0; i < N.length; i++){ a = N[i]; if (a === drag) continue; a.vx += (S.w / 2 - a.x) * 0.0014; a.vy += (S.h / 2 - a.y) * 0.0016; a.vx *= 0.82; a.vy *= 0.82; a.x += a.vx; a.y += a.vy; a.x = Math.max(14, Math.min(S.w - 14, a.x)); a.y = Math.max(14, Math.min(S.h - 14, a.y)); }
+  }
+  function draw(){
+    var c = S.ctx; c.clearRect(0, 0, S.w, S.h);
+    var hi = hover ? {} : null; if (hover){ hi[hover.id] = 1; E.forEach(function(e){ if (e[0] === hover.id) hi[e[1]] = 1; if (e[1] === hover.id) hi[e[0]] = 1; }); }
+    c.lineWidth = 1;
+    E.forEach(function(e){ var a = byId[e[0]], b = byId[e[1]]; var on = hi && (e[0] === hover.id || e[1] === hover.id); c.strokeStyle = on ? 'rgba(156,122,20,.9)' : (hi ? 'rgba(23,24,28,.06)' : 'rgba(23,24,28,.2)'); c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); });
+    c.font = '12px "Instrument Sans", sans-serif'; c.textBaseline = 'middle';
+    N.forEach(function(n){ var dim = hi && !hi[n.id]; c.globalAlpha = dim ? .25 : 1; c.fillStyle = TYPES[n.t]; c.beginPath(); c.arc(n.x, n.y, n.r, 0, 6.283); c.fill(); if (n.r > 7 || !dim && (hi || S.w > 700)){ c.fillStyle = 'rgba(23,24,28,.85)'; c.fillText(n.l, n.x + n.r + 6, n.y); } c.globalAlpha = 1; });
+  }
+  function loop(){ step(); draw(); if (!RM) raf = requestAnimationFrame(loop); }
+  function pt(e){ var r = cv.getBoundingClientRect(); return {x: e.clientX - r.left, y: e.clientY - r.top}; }
+  function near(p){ var best = null, bd = 400; N.forEach(function(n){ var dx = n.x - p.x, dy = n.y - p.y, d = dx * dx + dy * dy; if (d < bd){ bd = d; best = n; } }); return best; }
+  cv.addEventListener('pointermove', function(e){ var p = pt(e); if (drag){ drag.x = p.x; drag.y = p.y; drag.vx = drag.vy = 0; } else hover = near(p); cv.style.cursor = drag ? 'grabbing' : (hover ? 'grab' : 'default'); if (RM) draw(); });
+  cv.addEventListener('pointerdown', function(e){ var n = near(pt(e)); if (n){ drag = n; cv.setPointerCapture(e.pointerId); } });
+  cv.addEventListener('pointerup', function(){ drag = null; }); cv.addEventListener('pointercancel', function(){ drag = null; });
+  cv.addEventListener('pointerleave', function(){ hover = null; if (RM) draw(); });
+  var idx = slides.indexOf(cv.closest('.slide'));
+  hooks[idx] = { enter: function(){ init(); cancelAnimationFrame(raf); if (RM){ for (var k = 0; k < 220; k++) step(); draw(); } else loop(); }, leave: function(){ cancelAnimationFrame(raf); } };
+  window.__settleGraph = function(){ init(); for (var k = 0; k < 260; k++) step(); draw(); };
+})();
+
+/* memory rings (unused) */
 (function(){
   var svg = document.getElementById('rings'); if (!svg) return;
   var NS = 'http://www.w3.org/2000/svg', cx = 260, cy = 260;
@@ -875,6 +997,7 @@ document.addEventListener('touchend', function(e){ if (tx === null) return; var 
 })();
 
 var rt = 0; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ if (hooks[cur] && hooks[cur].enter){ if (hooks[cur].leave) hooks[cur].leave(); hooks[cur].enter(); } }, 200); });
+window.__deckGo = go; window.__deckCount = slides.length;
 var h = parseInt((location.hash || '').replace('#', ''), 10);
 go(isNaN(h) ? 0 : Math.max(0, Math.min(slides.length - 1, h - 1)), 1, false);
 })();

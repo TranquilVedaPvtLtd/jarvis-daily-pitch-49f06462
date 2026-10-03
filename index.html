@@ -247,6 +247,31 @@ a{color:inherit}
 .msg p{font-size:clamp(15px,1.15vw,17.5px);color:var(--ink);line-height:1.4;max-width:52ch}
 .msg span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-top:4px}
 
+/* website bot */
+.wbot{border:1px solid var(--rule);background:var(--paper2);display:grid;grid-template-rows:auto minmax(0,1fr) auto;height:min(62vh,560px);min-height:380px}
+.wbot .bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.wbot .bar i{width:8px;height:8px;border-radius:50%;background:#3E9B5B;flex:none}
+.wbot .bar em{font-style:normal;margin-left:auto;color:var(--faint)}
+.wbot .log{overflow:auto;padding:6px 14px 10px;scroll-behavior:smooth}
+.wbot .msg{grid-template-columns:14px minmax(0,1fr)}
+.wbot .msg.v i{background:var(--slate)}
+.wbot .msg.v b{color:var(--slate)}
+.wbot .msg p{max-width:none;font-size:clamp(14px,1.05vw,16px)}
+.wbot .src{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wbot .src span{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--gold);border:1px solid rgba(166,124,46,.35);padding:3px 8px;border-radius:2px;background:var(--paper)}
+.wbot .src span.b{color:var(--ink2);border-color:var(--rule)}
+.wbot .ask{border-top:1px solid var(--rule);padding:10px 14px 12px;background:var(--paper)}
+.wbot .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.wbot .chips button{border:1px solid var(--rule);background:var(--paper2);border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;transition:background .2s,border-color .2s}
+.wbot .chips button:hover{border-color:var(--gold2)}
+.wbot .chips button.done{color:var(--muted);border-style:dashed}
+.wbot .in{display:grid;grid-template-columns:1fr auto;gap:8px}
+.wbot .in input{font:inherit;font-size:14.5px;padding:10px 12px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:2px;outline:none}
+.wbot .in input:focus{border-color:var(--gold2)}
+.wbot .in button{border:1px solid var(--ink);background:var(--ink);color:var(--paper);font:inherit;font-size:13.5px;padding:0 16px;cursor:pointer;border-radius:2px;-webkit-appearance:none;appearance:none}
+.wbot .think{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);padding:6px 0 0 28px;letter-spacing:.04em}
+@media (max-width:980px){ .wbot{height:auto;min-height:0} .wbot .log{max-height:46vh} }
+
 /* rings */
 .rings{position:relative;width:100%;aspect-ratio:1/1;max-height:60vh;margin:0 auto}
 .rings svg{width:100%;height:100%;overflow:visible}
@@ -360,7 +385,7 @@ a{color:inherit}
         <li class="fr"><b>The turn into daylight</b><span>an operating system: one second brain, AI employees all night and all day, a person who says yes</span></li>
         <li class="fr"><b>Every business, and the gains</b><span>sales up, revenue up, your people stay, cost the same; one minute, start to finish</span></li>
       </ul>
-      <p class="small" style="margin-top:14px;color:var(--muted);font-size:14px">Sound on. <a href="film.mp4" download style="text-decoration:none;border-bottom:1px solid var(--rule)">Download the film</a> to share it on its own to share it on its own.</p>
+      <p class="small" style="margin-top:14px;color:var(--muted);font-size:14px">Sound on. <a href="film.mp4" download style="text-decoration:none;border-bottom:1px solid var(--rule)">Download the film</a> to share it on its own.</p>
     </div>
     <figure class="shot video" data-noadvance><video id="filmvid" controls playsinline preload="metadata" poster="img/film-poster.jpg" style="background:#F4EFE6"><source src="film.mp4" type="video/mp4"></video><img class="poster" src="img/film-poster.jpg" alt="A frame from the one-minute film"></figure>
   </div>
@@ -521,7 +546,7 @@ a{color:inherit}
       <ul class="lines">
         <li class="fr"><b>Posts that actually go out</b><span>researched, drafted, approved, scheduled</span></li>
         <li class="fr"><b>Written for search and for AI answers</b><span>SEO, AEO and GEO scored and fixed</span></li>
-        <li class="fr"><b>A website that brings business</b><span>built in days, with a working assistant on it</span></li>
+        <li class="fr"><b>A website that brings business</b><span>built in days, with a bot that has read all of it</span></li>
       </ul>
     </div>
     <div class="stack">
@@ -597,6 +622,38 @@ a{color:inherit}
   <h2 style="font-size:clamp(28px,3.2vw,48px);max-width:none">Your company stops depending on one person's memory. <span class="muted" style="font-style:italic;font-weight:300">Every client, project, person, meeting, proposal and invoice is a node. Drag one.</span></h2>
   <div class="graphwrap" data-noadvance><canvas id="graph"></canvas></div>
   <div class="legend mono" id="legend"></div>
+</section>
+
+<!-- 12b The website bot -->
+<section class="slide" data-stage="The website bot" data-notes="The website bot. It reads every page of the business's website in a day, then the second brain: past quotes, proposals, what clients asked before, what the owner says on calls. It answers in the visitor's language at two in the morning, qualifies, books a slot, and hands over to a person. Tap a question. Every answer shows where it learned it. Questions it could not answer become next week's page. Live today on a property portal in English and Marathi, the chat on the Sales slide.">
+  <div class="prod">
+    <div class="copy">
+      <div class="mono cap">The website bot</div>
+      <h2>A website that answers like your best employee.</h2>
+      <ul class="lines">
+        <li class="fr"><b>It learns the whole website in a day</b><span>every page, price list, portfolio, FAQ</span></li>
+        <li class="fr"><b>Then it learns the second brain</b><span>past quotes, proposals, what clients asked before, what you say on calls</span></li>
+        <li class="fr"><b>It answers, qualifies and books</b><span>in the visitor's language, at 2 am, then hands over to a person</span></li>
+        <li class="fr"><b>Every answer feeds back</b><span>what it could not answer becomes next week's page; every correction teaches it</span></li>
+      </ul>
+      <p class="small" style="margin-top:14px;color:var(--muted);font-size:14px">Live today on a property portal in English and Marathi. The same bot answers on WhatsApp.</p>
+    </div>
+    <div class="wbot" data-noadvance aria-label="A demonstration of the website bot">
+      <div class="bar"><i></i>An interiors studio, Pune: website assistant<em>2:14 am</em></div>
+      <div class="log" id="wbLog">
+        <div class="msg"><i></i><div><b>Assistant</b><p>Namaste. I have read every page of this studio's site and the last two hundred quotes. Ask me anything about kitchens, wardrobes, timelines or prices.</p></div></div>
+      </div>
+      <div class="ask">
+        <div class="chips" id="wbChips">
+          <button data-q="k">Do you do modular kitchens in Baner?</button>
+          <button data-q="p">What does a 2BHK interior cost?</button>
+          <button data-q="c">Can someone call me tomorrow?</button>
+          <button data-q="m">मराठीत बोलू शकतो का?</button>
+        </div>
+        <form class="in" id="wbForm"><input id="wbInput" type="text" placeholder="Or type your own question" autocomplete="off"><button type="submit">Ask</button></form>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- 13 Case: trading desk -->
@@ -827,10 +884,43 @@ document.addEventListener('touchend', function(e){ if (tx === null) return; var 
     var after = E * 0.47; document.getElementById('cAfter').textContent = f(after); document.getElementById('cLost').textContent = f(after * 0.62); }
   [t, a, e].forEach(function(i){ i.addEventListener('input', calc); }); calc();
 })();
+/* website bot demo */
+(function(){
+  var log = document.getElementById('wbLog'); if (!log) return;
+  var chips = document.getElementById('wbChips'), form = document.getElementById('wbForm'), input = document.getElementById('wbInput');
+  var A = {
+    k: ['Yes. Fourteen modular kitchens finished in Baner this year; the nearest to you is a 10 by 12 L-shape handed over in August. For that size you are looking at Rs 3.8 to 4.6 lakh, fitted in five weeks. Shall I show you the three closest to your plan?', ['Projects page','Price list','Second brain: 14 Baner quotes']],
+    p: ['For a 2BHK the studio\'s last twenty quotes ran between Rs 7.5 and 11 lakh, depending on wardrobes and false ceiling. The most common package was Rs 8.9 lakh, six to eight weeks. If you tell me your carpet area I can narrow it to one number.', ['Second brain: 20 past 2BHK proposals','Rate library','FAQ page']],
+    c: ['Of course. A designer is free tomorrow at 10:30 or 4:00. Which suits you? I will put your kitchen size and budget on the invite so you do not have to repeat anything.', ['Calendar','Hands over to a person','Logged to the CRM']],
+    m: ['नक्कीच. मी मराठी, हिंदी आणि इंग्रजीत उत्तर देतो. बाणेरमध्ये या वर्षी आम्ही चौदा मॉड्युलर किचन पूर्ण केली आहेत; तुमच्या किचनचा आकार सांगितलात तर मी अंदाजे खर्च सांगू शकतो.', ['Three languages','Projects page','Second brain: 14 Baner quotes']],
+    x: ['On the live site I would answer that from the studio\'s pages and its past quotes, and if I could not, a person would have it in the morning and a page would be written so the next visitor gets the answer. Here, tap one of the four questions above.', ['Unanswered questions become pages','A person is always behind it']]
+  };
+  function add(cls, who, text, src){
+    var el = document.createElement('div'); el.className = 'msg ' + cls;
+    el.innerHTML = '<i></i><div><b></b><p></p>' + (src ? '<div class="src">' + src.map(function(t, i){ return '<span class="' + (/Second brain/.test(t) ? '' : 'b') + '">' + t + '</span>'; }).join('') + '</div>' : '') + '</div>';
+    el.querySelector('b').textContent = who; el.querySelector('p').textContent = text;
+    log.appendChild(el); log.scrollTop = log.scrollHeight; return el;
+  }
+  var busy = false;
+  function ask(q, key){
+    if (busy) return; busy = true;
+    add('v', 'Visitor', q);
+    var think = document.createElement('div'); think.className = 'think'; think.textContent = 'reading the site and the second brain'; log.appendChild(think); log.scrollTop = log.scrollHeight;
+    setTimeout(function(){
+      think.remove(); var a = A[key] || A.x; var el = add('', 'Assistant', a[0], a[1]);
+      var srcs = el.querySelector('.src'); if (srcs) srcs.style.opacity = '0';
+      if (!RM){ typeMsg(el); setTimeout(function(){ if (srcs){ srcs.style.transition = 'opacity .4s'; srcs.style.opacity = '1'; } log.scrollTop = log.scrollHeight; busy = false; }, Math.min(2600, a[0].length * 7)); }
+      else { if (srcs) srcs.style.opacity = '1'; busy = false; }
+      var iv = setInterval(function(){ log.scrollTop = log.scrollHeight; if (busy === false) clearInterval(iv); }, 120);
+    }, RM ? 50 : 900);
+  }
+  chips.addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; b.classList.add('done'); ask(b.textContent, b.getAttribute('data-q')); });
+  form.addEventListener('submit', function(e){ e.preventDefault(); var q = input.value.trim(); if (!q) return; input.value = ''; ask(q, 'x'); });
+})();
 /* hats picker */
 (function(){
   var hats = document.getElementById('hats'); if (!hats) return;
-  var MAP = {inbox:['An inbox and calendar assistant','sorts mail, drafts replies, books meetings, keeps the follow-up list'], support:['A support agent on WhatsApp and web','answers in your language day and night, hands over when stuck'], outbound:['An outbound sales agent','finds leads, writes the first message, follows up on time'], calls:['A voice agent that picks up and calls back','qualifies, books the visit, logs the call within a minute'], social:['A content agent','researches, drafts and schedules posts for your approval'], search:['A search and AI-visibility agent','writes pages and answers so Google and ChatGPT find you'], email:['An email marketing agent','segments, writes, sends, learns from replies'], reviews:['A reputation agent','asks happy customers, replies to the rest'], reports:['A reporting agent','the Monday numbers, ready before Monday'], books:['A books and GST agent','reads statements, matches invoices, chases what is due'], hiring:['A hiring agent','screens applications, schedules, keeps notes'], ops:['A chief of staff','chases what is late, prepares what is next, runs the day']};
+  var MAP = {inbox:['An inbox and calendar assistant','sorts mail, drafts replies, books meetings, keeps the follow-up list'], support:['A website and WhatsApp bot','has read every page of your site and your past quotes; answers day and night, hands over when stuck'], outbound:['An outbound sales agent','finds leads, writes the first message, follows up on time'], calls:['A voice agent that picks up and calls back','qualifies, books the visit, logs the call within a minute'], social:['A content agent','researches, drafts and schedules posts for your approval'], search:['A search and AI-visibility agent','writes pages and answers so Google and ChatGPT find you'], email:['An email marketing agent','segments, writes, sends, learns from replies'], reviews:['A reputation agent','asks happy customers, replies to the rest'], reports:['A reporting agent','the Monday numbers, ready before Monday'], books:['A books and GST agent','reads statements, matches invoices, chases what is due'], hiring:['A hiring agent','screens applications, schedules, keeps notes'], ops:['A chief of staff','chases what is late, prepares what is next, runs the day']};
   var ORDER = ['calls','support','outbound','ops','books','social','search','inbox','email','reviews','reports','hiring'];
   var sel = {};
   function render(){ var keys = ORDER.filter(function(k){ return sel[k]; }).slice(0, 3); var ol = document.getElementById('answerList'); var hint = document.querySelector('#answer .hintline'); ol.innerHTML = keys.map(function(k){ return '<li><div><b>' + MAP[k][0] + '</b>' + MAP[k][1] + '</div></li>'; }).join(''); hint.textContent = keys.length ? (Object.keys(sel).filter(function(k){ return sel[k]; }).length > 3 ? 'The first three, in the order we would start. The rest follow once these run.' : 'In the order we would start.') : 'Tap any hat on the left. We will show the first three employees we would put in, in order.'; }
